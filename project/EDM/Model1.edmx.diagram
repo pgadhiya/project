@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="767c545966a045af81ded20a08759776" Name="Diagram1">
+      <Diagram DiagramId="46fffa41da79449581d181b4081df462" Name="Diagram1">
         <EntityTypeShape EntityType="technotaskModel.tbladmin" Width="1.5" PointX="5.75" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="technotaskModel.tblbatch" Width="1.5" PointX="3" PointY="5.5" IsExpanded="true" />
         <EntityTypeShape EntityType="technotaskModel.tblbatchdetail" Width="1.5" PointX="5.25" PointY="1.75" IsExpanded="true" />

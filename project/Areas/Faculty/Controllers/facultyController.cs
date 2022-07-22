@@ -30,6 +30,7 @@ namespace project.Areas.Faculty.Controllers
         {
             string email = fc["email"];
             string pass = fc["password"];
+            
             var userobj = dc.tblfaculties.Where(u => u.E_mail == email && u.Password == pass).FirstOrDefault();
 
             if (userobj != null)
@@ -37,6 +38,7 @@ namespace project.Areas.Faculty.Controllers
                 //cookies
                 Session["UserId"] = userobj.F_ID;
                 Session["UserName"] = userobj.F_Name;
+                Session["profimg"] = userobj.F_Image;
                 return RedirectToAction("Facultyhome");
             }
             else

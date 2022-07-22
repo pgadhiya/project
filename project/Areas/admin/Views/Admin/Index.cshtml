@@ -1,4 +1,4 @@
-﻿
+﻿@model IEnumerable<project.EDM.tblfaculty>
 
 @{
     ViewBag.Title = "Index";
@@ -19,12 +19,12 @@
                         + "<td>" + item.F_Name + "</td>"
                         + "<td>" + item.L_Name + "</td>"
                         + "<td>" + item.E_mail + "</td>"
-                        + "<td>" + item.F_Image + "</td>"
+                        + "<td><img src='/Images/" + item.F_Image + "' style='width: 50px' /></td>"
                         //+ "<td><a href='/Default/Edit/" + item.F_ID + "'>Edit</a> | <a href='/Default/Delete/" + item.F_ID + "'>Delete</a></td>"
                         + "</tr>");
                 });
             }
-        }); 
+        });
         $.ajax({
             url: "/admin/Admin/Getbatch",
             type: "GET",
@@ -52,7 +52,7 @@
                 $.each(studentlist, function (key, item) {
                     $("#tblstudent").append("<tr>"
                         + "<td>" + item.S_ID + "</td>"
-                        + "<td>" + item.S_img + "</td>"
+                        + "<td><img src='/Images/" + item.S_img + "' style='width: 50px' /></td>"
                         + "<td>" + item.F_Name + "</td>"
                         + "<td>" + item.L_Name + "</td>"
                         + "<td>" + item.E_mail + "</td>"
@@ -160,19 +160,18 @@
                                 <h5 class="card-title">Faculty <span>| Details</span></h5>
 
                                 <table class="table table-borderless">
-                    <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">First Name</th>
-                            <th scope="col">Last Name</th>
-                            <th scope="col">Email</th>
-                            <th scope="col">Image</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tblfaculty">
-                       
-                    </tbody>
-                </table>
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">First Name</th>
+                                            <th scope="col">Last Name</th>
+                                            <th scope="col">Email</th>
+                                            <th scope="col">Image</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tblfaculty">
+                                    </tbody>
+                                </table>
 
                             </div>
 
@@ -196,7 +195,6 @@
                                         </tr>
                                     </thead>
                                     <tbody id="tblbatch">
-                                        
                                     </tbody>
                                 </table>
 
@@ -227,7 +225,6 @@
                                         </tr>
                                     </thead>
                                     <tbody id="tblstudent">
-                                        
                                     </tbody>
                                 </table>
 

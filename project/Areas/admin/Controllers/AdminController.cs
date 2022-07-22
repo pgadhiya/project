@@ -33,6 +33,7 @@ namespace project.Areas.admin.Controllers
                 //cookies
                 Session["UserId"] = userobj.AD_ID;
                 Session["UserName"] = userobj.F_Name;
+                Session["profimg"] = userobj.A_Image;
                 return RedirectToAction("Index");
             }
             else
@@ -53,13 +54,20 @@ namespace project.Areas.admin.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Register(FormCollection fc)
+        public ActionResult Register(FormCollection fc, HttpPostedFileBase file)
         {
             tbladmin obj = new tbladmin();
             obj.F_Name = fc["fname"];
             obj.L_Name = fc["lname"];
             obj.E_mail = fc["email"];
             obj.Password = fc["password"];
+            if (file != null && file.ContentLength > 0)
+            {
+                string filename = Path.GetFileName(file.FileName);
+                string fullpath = Path.Combine(Server.MapPath("~/Images"), filename);
+                file.SaveAs(fullpath);
+                obj.A_Image = filename;
+            }
 
             dc.tbladmins.Add(obj);
             dc.SaveChanges();
@@ -71,18 +79,25 @@ namespace project.Areas.admin.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Registerfaculty(FormCollection fc)
+        public ActionResult Registerfaculty(FormCollection fc, HttpPostedFileBase file)
         {
             tblfaculty obj = new tblfaculty();
             obj.F_Name = fc["fname"];
             obj.L_Name = fc["lname"];
             obj.E_mail = fc["email"];
             obj.Password = fc["password"];
+            if (file != null && file.ContentLength > 0)
+            {
+                string filename = Path.GetFileName(file.FileName);
+                string fullpath = Path.Combine(Server.MapPath("~/Images"), filename);
+                file.SaveAs(fullpath);
+                obj.F_Image = filename;
+            }
 
             dc.tblfaculties.Add(obj);
             dc.SaveChanges();
 
-            return RedirectToAction("Login");
+            return RedirectToAction("../../Faculty/faculty/Login");
         }
         public ActionResult Registerstudent()
         {
@@ -132,12 +147,7 @@ namespace project.Areas.admin.Controllers
 
             return RedirectToAction("../../Student/student/Login");
         }
-        //public ActionResult Studentprofile(int id)
-        //{
-        //    tblstudent obj = new tblstudent();
-        //    var stdimg = dc.tblstudents.Where(x => x.ST_ID == id).FirstOrDefault();
-        //    return  File(stdimg.S_img, "image/jpeg");
-        //}
+        
         void FillStates()
         {
            

@@ -14,7 +14,7 @@
           <Property Name="L_Name" Type="varchar" MaxLength="50" />
           <Property Name="E_mail" Type="varchar" MaxLength="50" />
           <Property Name="Password" Type="varchar" MaxLength="50" />
-          <Property Name="A_Image" Type="varbinary(max)" />
+          <Property Name="A_Image" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="tblbatch">
           <Key>
@@ -52,7 +52,7 @@
           <Property Name="L_Name" Type="varchar" MaxLength="50" />
           <Property Name="E_mail" Type="varchar" MaxLength="50" />
           <Property Name="Password" Type="varchar" MaxLength="50" />
-          <Property Name="F_Image" Type="varbinary(max)" />
+          <Property Name="F_Image" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="tblstate">
           <Key>
@@ -164,7 +164,7 @@
           <Property Name="L_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="E_mail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="A_Image" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="A_Image" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="tblbatch">
           <Key>
@@ -206,7 +206,7 @@
           <Property Name="L_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="E_mail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="F_Image" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="F_Image" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="tblbatches" Relationship="Self.FK_tblbatch_tblfaculty" FromRole="tblfaculty" ToRole="tblbatch" />
         </EntityType>
         <EntityType Name="tblstate">

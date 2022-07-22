@@ -1,5 +1,6 @@
 ﻿@{
     string username = Session["UserName"] != null ? Session["UserName"].ToString() : "";
+    string upic = Session["profimg"] != null ? Session["profimg"].ToString() : "";
 }
 <!DOCTYPE html>
 
@@ -48,14 +49,16 @@
             <ul class="d-flex align-items-center">
 
                 <li class="nav-item dropdown pe-3">
-                    @if (username == "")
-                    {                        
-                        <a href="/Faculty/faculty/Login">Login</a>
-                    }
-                    else
-                    {
-                        <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-                            <img src="~/Areas/Admin/web/assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
+                    @if (username != "")
+                    {<a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+                            @if (!string.IsNullOrEmpty(upic))
+                            {
+                                <img src="@Url.Action( @upic,"~/../../Images" )" alt="Profile" class="rounded-circle" />
+                            }
+                            else
+                            {
+                                <img src="/../../Images/userdefault.png" alt="Profile" class="rounded-circle" />
+                            }
                             <span class="d-none d-md-block dropdown-toggle ps-2">@username</span>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
@@ -77,6 +80,11 @@
 
 
                         </ul>
+
+                    }
+                    else
+                    {
+                        <a href="/Faculty/faculty/Login">Login</a>
                     }
                     <!-- End Profile Iamge Icon -->
                     <!--<ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">

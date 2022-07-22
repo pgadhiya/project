@@ -19,6 +19,6 @@ namespace project.EDM
         public string L_Name { get; set; }
         public string E_mail { get; set; }
         public string Password { get; set; }
-        public byte[] A_Image { get; set; }
+        public string A_Image { get; set; }
     }
 }

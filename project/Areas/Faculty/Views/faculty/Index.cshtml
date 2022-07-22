@@ -33,6 +33,7 @@
                             <thead>
                                 <tr>
                                     <th scope="col">ID</th>
+                                    <th scope="col">Image</th>
                                     <th scope="col">First Name</th>
                                     <th scope="col">Last Name</th>
                                     <th scope="col">Email</th>
@@ -42,13 +43,14 @@
                             <tbody>
                                 @foreach (var item in Model)
                                 {
-                                    <tr>
-                                        <td>@Html.DisplayFor(modelItem => item.F_ID)</td>
-                                        <td>@Html.DisplayFor(modelItem => item.F_Name)</td>
-                                        <td>@Html.DisplayFor(modelItem => item.L_Name)</td>
-                                        <td>@Html.DisplayFor(modelItem => item.E_mail)</td>
-                                        <td>@Html.DisplayFor(modelItem => item.Password)</td>
-                                    </tr>
+                                <tr>
+                                    <td>@Html.DisplayFor(modelItem => item.F_ID)</td>
+                                    <td><img src='~/Images/@Html.DisplayFor(modelItem => item.F_Image)' style="width:50px" /></td>
+                                    <td>@Html.DisplayFor(modelItem => item.F_Name)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.L_Name)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.E_mail)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Password)</td>
+                                </tr>
 
                                 }
 
