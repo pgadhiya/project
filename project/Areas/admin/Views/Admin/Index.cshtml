@@ -1,0 +1,245 @@
+﻿
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/admin/Views/Shared/_LayoutTheme.cshtml";
+}
+
+
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            url: "/admin/Admin/Getfaculty",
+            type: "GET",
+            dataType: "json",
+            success: function (facultylist) {
+                $.each(facultylist, function (key, item) {
+                    $("#tblfaculty").append("<tr>"
+                        + "<td>" + item.F_ID + "</td>"
+                        + "<td>" + item.F_Name + "</td>"
+                        + "<td>" + item.L_Name + "</td>"
+                        + "<td>" + item.E_mail + "</td>"
+                        + "<td>" + item.F_Image + "</td>"
+                        //+ "<td><a href='/Default/Edit/" + item.F_ID + "'>Edit</a> | <a href='/Default/Delete/" + item.F_ID + "'>Delete</a></td>"
+                        + "</tr>");
+                });
+            }
+        }); 
+        $.ajax({
+            url: "/admin/Admin/Getbatch",
+            type: "GET",
+            dataType: "json",
+            success: function (batchlist) {
+                $.each(batchlist, function (key, item) {
+                    $("#tblbatch").append("<tr>"
+                        + "<td>" + item.B_ID + "</td>"
+                        + "<td>" + item.B_Name + "</td>"
+                        + "<td>" + item.F_ID + "</td>"
+                        + "<td>" + item.B_ST_DATE + "</td>"
+                        + "<td>" + item.B_CR_DATE + "</td>"
+                        + "<td>" + item.Status + "</td>"
+                        //+ "<td><a href='/Default/Edit/" + item.F_ID + "'>Edit</a> | <a href='/Default/Delete/" + item.F_ID + "'>Delete</a></td>"
+                        + "</tr>");
+                });
+            }
+        });
+
+        $.ajax({
+            url: "/admin/Admin/Getstudent",
+            type: "GET",
+            dataType: "json",
+            success: function (studentlist) {
+                $.each(studentlist, function (key, item) {
+                    $("#tblstudent").append("<tr>"
+                        + "<td>" + item.S_ID + "</td>"
+                        + "<td>" + item.S_img + "</td>"
+                        + "<td>" + item.F_Name + "</td>"
+                        + "<td>" + item.L_Name + "</td>"
+                        + "<td>" + item.E_mail + "</td>"
+                        + "<td>" + item.Address + "</td>"
+                        + "<td>" + item.ST_ID + "</td>"
+                        + "<td>" + item.CT_ID + "</td>"
+                        + "<td>" + item.Mobile + "</td>"
+                        + "<td>" + item.Status + "</td>"
+                        //+ "<td><a href='/Default/Edit/" + item.F_ID + "'>Edit</a> | <a href='/Default/Delete/" + item.F_ID + "'>Delete</a></td>"
+                        + "</tr>");
+                });
+            }
+        });
+    });
+</script>
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>Dashboard</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/admin/Admin">Home</a></li>
+                <li class="breadcrumb-item active">Dashboard</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section dashboard">
+        <div class="row">
+
+            <!-- Left side columns -->
+            <div class="col-lg-12">
+                <div class="row">
+                    <!-- Reports -->
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Reports <span>/Today</span></h5>
+
+                                <!-- Line Chart -->
+                                <div id="reportsChart"></div>
+
+                                <script>
+                                    document.addEventListener("DOMContentLoaded", () => {
+                                        new ApexCharts(document.querySelector("#reportsChart"), {
+                                            series: [{
+                                                name: 'Students',
+                                                data: [31, 40, 28, 51, 42, 82, 56],
+                                            }, {
+                                                name: 'Facultie',
+                                                data: [11, 32, 45, 32, 34, 52, 41]
+                                            }, {
+                                                name: 'Batches',
+                                                data: [15, 11, 32, 18, 9, 24, 11]
+                                            }],
+                                            chart: {
+                                                height: 350,
+                                                type: 'area',
+                                                toolbar: {
+                                                    show: false
+                                                },
+                                            },
+                                            markers: {
+                                                size: 4
+                                            },
+                                            colors: ['#4154f1', '#2eca6a', '#ff771d'],
+                                            fill: {
+                                                type: "gradient",
+                                                gradient: {
+                                                    shadeIntensity: 1,
+                                                    opacityFrom: 0.3,
+                                                    opacityTo: 0.4,
+                                                    stops: [0, 90, 100]
+                                                }
+                                            },
+                                            dataLabels: {
+                                                enabled: false
+                                            },
+                                            stroke: {
+                                                curve: 'smooth',
+                                                width: 2
+                                            },
+                                            xaxis: {
+                                                type: 'datetime',
+                                                categories: ["2018-09-19T00:00:00.000Z", "2018-09-19T01:30:00.000Z", "2018-09-19T02:30:00.000Z", "2018-09-19T03:30:00.000Z", "2018-09-19T04:30:00.000Z", "2018-09-19T05:30:00.000Z", "2018-09-19T06:30:00.000Z"]
+                                            },
+                                            tooltip: {
+                                                x: {
+                                                    format: 'dd/MM/yy HH:mm'
+                                                },
+                                            }
+                                        }).render();
+                                    });
+                                </script>
+                                <!-- End Line Chart -->
+
+                            </div>
+
+                        </div>
+                    </div><!-- End Reports -->
+                    <!-- Recent Sales -->
+                    <div class="col-12">
+                        <div class="card recent-sales overflow-auto">
+                            <div class="card-body">
+                                <h5 class="card-title">Faculty <span>| Details</span></h5>
+
+                                <table class="table table-borderless">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">First Name</th>
+                            <th scope="col">Last Name</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Image</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tblfaculty">
+                       
+                    </tbody>
+                </table>
+
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- End Recent Sales -->
+                    <!--Batch Details Start-->
+                    <div class="col-12">
+                        <div class="card recent-sales overflow-auto">
+                            <div class="card-body">
+                                <h5 class="card-title">Batch <span>| Details</span></h5>
+                                <table class="table table-borderless">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Batch Name</th>
+                                            <th scope="col">Faculty Name</th>
+                                            <th scope="col">Start Date</th>
+                                            <th scope="col">Create Date</th>
+                                            <th scope="col">Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tblbatch">
+                                        
+                                    </tbody>
+                                </table>
+
+                            </div>
+
+                        </div>
+                    </div>
+                    <!--Batch Details End-->
+                    <!-- Top Selling -->
+                    <div class="col-12">
+                        <div class="card top-selling overflow-auto">
+                            <div class="card-body pb-0">
+                                <h5 class="card-title">Students <span>| Details</span></h5>
+
+                                <table class="table table-borderless">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Sr. No.</th>
+                                            <th scope="col">Image</th>
+                                            <th scope="col">First Name</th>
+                                            <th scope="col">Last Name</th>
+                                            <th scope="col">Email</th>
+                                            <th scope="col">Address</th>
+                                            <th scope="col">State</th>
+                                            <th scope="col">City</th>
+                                            <th scope="col">Mobile</th>
+                                            <th scope="col">Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tblstudent">
+                                        
+                                    </tbody>
+                                </table>
+
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- End Top Selling -->
+
+                </div>
+            </div><!-- End Left side columns -->
+        </div>
+    </section>
+
+</main><!-- End #main -->

@@ -1,0 +1,419 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="technotaskModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tbladmin">
+          <Key>
+            <PropertyRef Name="AD_ID" />
+          </Key>
+          <Property Name="AD_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="F_Name" Type="varchar" MaxLength="50" />
+          <Property Name="L_Name" Type="varchar" MaxLength="50" />
+          <Property Name="E_mail" Type="varchar" MaxLength="50" />
+          <Property Name="Password" Type="varchar" MaxLength="50" />
+          <Property Name="A_Image" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="tblbatch">
+          <Key>
+            <PropertyRef Name="B_ID" />
+          </Key>
+          <Property Name="B_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="B_Name" Type="varchar" MaxLength="50" />
+          <Property Name="F_ID" Type="int" />
+          <Property Name="B_ST_DATE" Type="datetime" />
+          <Property Name="B_CR_DATE" Type="datetime" />
+          <Property Name="Status" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tblbatchdetail">
+          <Key>
+            <PropertyRef Name="BD_ID" />
+          </Key>
+          <Property Name="BD_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="B_ID" Type="int" />
+          <Property Name="S_ID" Type="int" />
+        </EntityType>
+        <EntityType Name="tblcity">
+          <Key>
+            <PropertyRef Name="CT_ID" />
+          </Key>
+          <Property Name="CT_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Cityname" Type="varchar" MaxLength="50" />
+          <Property Name="ST_ID" Type="int" />
+        </EntityType>
+        <EntityType Name="tblfaculty">
+          <Key>
+            <PropertyRef Name="F_ID" />
+          </Key>
+          <Property Name="F_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="F_Name" Type="varchar" MaxLength="50" />
+          <Property Name="L_Name" Type="varchar" MaxLength="50" />
+          <Property Name="E_mail" Type="varchar" MaxLength="50" />
+          <Property Name="Password" Type="varchar" MaxLength="50" />
+          <Property Name="F_Image" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="tblstate">
+          <Key>
+            <PropertyRef Name="ST_ID" />
+          </Key>
+          <Property Name="ST_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Satename" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tblstudent">
+          <Key>
+            <PropertyRef Name="S_ID" />
+          </Key>
+          <Property Name="S_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="F_Name" Type="varchar" MaxLength="50" />
+          <Property Name="L_Name" Type="varchar" MaxLength="50" />
+          <Property Name="E_mail" Type="varchar" MaxLength="50" />
+          <Property Name="Password" Type="varchar" MaxLength="50" />
+          <Property Name="Address" Type="varchar" MaxLength="50" />
+          <Property Name="ST_ID" Type="int" />
+          <Property Name="CT_ID" Type="int" />
+          <Property Name="Mobile" Type="int" />
+          <Property Name="Status" Type="varchar" MaxLength="50" />
+          <Property Name="S_img" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_tblbatch_tblfaculty">
+          <End Role="tblfaculty" Type="Self.tblfaculty" Multiplicity="0..1" />
+          <End Role="tblbatch" Type="Self.tblbatch" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblfaculty">
+              <PropertyRef Name="F_ID" />
+            </Principal>
+            <Dependent Role="tblbatch">
+              <PropertyRef Name="F_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblbatchdetail_tblbatch">
+          <End Role="tblbatch" Type="Self.tblbatch" Multiplicity="0..1" />
+          <End Role="tblbatchdetail" Type="Self.tblbatchdetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblbatch">
+              <PropertyRef Name="B_ID" />
+            </Principal>
+            <Dependent Role="tblbatchdetail">
+              <PropertyRef Name="B_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblbatchdetail_tblstudent">
+          <End Role="tblstudent" Type="Self.tblstudent" Multiplicity="0..1" />
+          <End Role="tblbatchdetail" Type="Self.tblbatchdetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblstudent">
+              <PropertyRef Name="S_ID" />
+            </Principal>
+            <Dependent Role="tblbatchdetail">
+              <PropertyRef Name="S_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblstudent_tblstate">
+          <End Role="tblstate" Type="Self.tblstate" Multiplicity="0..1" />
+          <End Role="tblstudent" Type="Self.tblstudent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblstate">
+              <PropertyRef Name="ST_ID" />
+            </Principal>
+            <Dependent Role="tblstudent">
+              <PropertyRef Name="ST_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="technotaskModelStoreContainer">
+          <EntitySet Name="tbladmin" EntityType="Self.tbladmin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblbatch" EntityType="Self.tblbatch" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblbatchdetail" EntityType="Self.tblbatchdetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblcity" EntityType="Self.tblcity" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblfaculty" EntityType="Self.tblfaculty" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblstate" EntityType="Self.tblstate" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblstudent" EntityType="Self.tblstudent" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_tblbatch_tblfaculty" Association="Self.FK_tblbatch_tblfaculty">
+            <End Role="tblfaculty" EntitySet="tblfaculty" />
+            <End Role="tblbatch" EntitySet="tblbatch" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblbatchdetail_tblbatch" Association="Self.FK_tblbatchdetail_tblbatch">
+            <End Role="tblbatch" EntitySet="tblbatch" />
+            <End Role="tblbatchdetail" EntitySet="tblbatchdetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblbatchdetail_tblstudent" Association="Self.FK_tblbatchdetail_tblstudent">
+            <End Role="tblstudent" EntitySet="tblstudent" />
+            <End Role="tblbatchdetail" EntitySet="tblbatchdetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblstudent_tblstate" Association="Self.FK_tblstudent_tblstate">
+            <End Role="tblstate" EntitySet="tblstate" />
+            <End Role="tblstudent" EntitySet="tblstudent" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="technotaskModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tbladmin">
+          <Key>
+            <PropertyRef Name="AD_ID" />
+          </Key>
+          <Property Name="AD_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="F_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="L_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="E_mail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="A_Image" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="tblbatch">
+          <Key>
+            <PropertyRef Name="B_ID" />
+          </Key>
+          <Property Name="B_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="B_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="F_ID" Type="Int32" />
+          <Property Name="B_ST_DATE" Type="DateTime" Precision="3" />
+          <Property Name="B_CR_DATE" Type="DateTime" Precision="3" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tblfaculty" Relationship="Self.FK_tblbatch_tblfaculty" FromRole="tblbatch" ToRole="tblfaculty" />
+          <NavigationProperty Name="tblbatchdetails" Relationship="Self.FK_tblbatchdetail_tblbatch" FromRole="tblbatch" ToRole="tblbatchdetail" />
+        </EntityType>
+        <EntityType Name="tblbatchdetail">
+          <Key>
+            <PropertyRef Name="BD_ID" />
+          </Key>
+          <Property Name="BD_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="B_ID" Type="Int32" />
+          <Property Name="S_ID" Type="Int32" />
+          <NavigationProperty Name="tblbatch" Relationship="Self.FK_tblbatchdetail_tblbatch" FromRole="tblbatchdetail" ToRole="tblbatch" />
+          <NavigationProperty Name="tblstudent" Relationship="Self.FK_tblbatchdetail_tblstudent" FromRole="tblbatchdetail" ToRole="tblstudent" />
+        </EntityType>
+        <EntityType Name="tblcity">
+          <Key>
+            <PropertyRef Name="CT_ID" />
+          </Key>
+          <Property Name="CT_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Cityname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ST_ID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="tblfaculty">
+          <Key>
+            <PropertyRef Name="F_ID" />
+          </Key>
+          <Property Name="F_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="F_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="L_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="E_mail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="F_Image" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="tblbatches" Relationship="Self.FK_tblbatch_tblfaculty" FromRole="tblfaculty" ToRole="tblbatch" />
+        </EntityType>
+        <EntityType Name="tblstate">
+          <Key>
+            <PropertyRef Name="ST_ID" />
+          </Key>
+          <Property Name="ST_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Satename" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tblstudents" Relationship="Self.FK_tblstudent_tblstate" FromRole="tblstate" ToRole="tblstudent" />
+        </EntityType>
+        <EntityType Name="tblstudent">
+          <Key>
+            <PropertyRef Name="S_ID" />
+          </Key>
+          <Property Name="S_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="F_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="L_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="E_mail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ST_ID" Type="Int32" />
+          <Property Name="CT_ID" Type="Int32" />
+          <Property Name="Mobile" Type="Int32" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="S_img" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tblbatchdetails" Relationship="Self.FK_tblbatchdetail_tblstudent" FromRole="tblstudent" ToRole="tblbatchdetail" />
+          <NavigationProperty Name="tblstate" Relationship="Self.FK_tblstudent_tblstate" FromRole="tblstudent" ToRole="tblstate" />
+        </EntityType>
+        <Association Name="FK_tblbatch_tblfaculty">
+          <End Role="tblfaculty" Type="Self.tblfaculty" Multiplicity="0..1" />
+          <End Role="tblbatch" Type="Self.tblbatch" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblfaculty">
+              <PropertyRef Name="F_ID" />
+            </Principal>
+            <Dependent Role="tblbatch">
+              <PropertyRef Name="F_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblbatchdetail_tblbatch">
+          <End Role="tblbatch" Type="Self.tblbatch" Multiplicity="0..1" />
+          <End Role="tblbatchdetail" Type="Self.tblbatchdetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblbatch">
+              <PropertyRef Name="B_ID" />
+            </Principal>
+            <Dependent Role="tblbatchdetail">
+              <PropertyRef Name="B_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblbatchdetail_tblstudent">
+          <End Role="tblstudent" Type="Self.tblstudent" Multiplicity="0..1" />
+          <End Role="tblbatchdetail" Type="Self.tblbatchdetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblstudent">
+              <PropertyRef Name="S_ID" />
+            </Principal>
+            <Dependent Role="tblbatchdetail">
+              <PropertyRef Name="S_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblstudent_tblstate">
+          <End Role="tblstate" Type="Self.tblstate" Multiplicity="0..1" />
+          <End Role="tblstudent" Type="Self.tblstudent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblstate">
+              <PropertyRef Name="ST_ID" />
+            </Principal>
+            <Dependent Role="tblstudent">
+              <PropertyRef Name="ST_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="technotaskEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tbladmins" EntityType="Self.tbladmin" />
+          <EntitySet Name="tblbatches" EntityType="Self.tblbatch" />
+          <EntitySet Name="tblbatchdetails" EntityType="Self.tblbatchdetail" />
+          <EntitySet Name="tblcities" EntityType="Self.tblcity" />
+          <EntitySet Name="tblfaculties" EntityType="Self.tblfaculty" />
+          <EntitySet Name="tblstates" EntityType="Self.tblstate" />
+          <EntitySet Name="tblstudents" EntityType="Self.tblstudent" />
+          <AssociationSet Name="FK_tblbatch_tblfaculty" Association="Self.FK_tblbatch_tblfaculty">
+            <End Role="tblfaculty" EntitySet="tblfaculties" />
+            <End Role="tblbatch" EntitySet="tblbatches" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblbatchdetail_tblbatch" Association="Self.FK_tblbatchdetail_tblbatch">
+            <End Role="tblbatch" EntitySet="tblbatches" />
+            <End Role="tblbatchdetail" EntitySet="tblbatchdetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblbatchdetail_tblstudent" Association="Self.FK_tblbatchdetail_tblstudent">
+            <End Role="tblstudent" EntitySet="tblstudents" />
+            <End Role="tblbatchdetail" EntitySet="tblbatchdetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblstudent_tblstate" Association="Self.FK_tblstudent_tblstate">
+            <End Role="tblstate" EntitySet="tblstates" />
+            <End Role="tblstudent" EntitySet="tblstudents" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="technotaskModelStoreContainer" CdmEntityContainer="technotaskEntities">
+          <EntitySetMapping Name="tbladmins">
+            <EntityTypeMapping TypeName="technotaskModel.tbladmin">
+              <MappingFragment StoreEntitySet="tbladmin">
+                <ScalarProperty Name="AD_ID" ColumnName="AD_ID" />
+                <ScalarProperty Name="F_Name" ColumnName="F_Name" />
+                <ScalarProperty Name="L_Name" ColumnName="L_Name" />
+                <ScalarProperty Name="E_mail" ColumnName="E_mail" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="A_Image" ColumnName="A_Image" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblbatches">
+            <EntityTypeMapping TypeName="technotaskModel.tblbatch">
+              <MappingFragment StoreEntitySet="tblbatch">
+                <ScalarProperty Name="B_ID" ColumnName="B_ID" />
+                <ScalarProperty Name="B_Name" ColumnName="B_Name" />
+                <ScalarProperty Name="F_ID" ColumnName="F_ID" />
+                <ScalarProperty Name="B_ST_DATE" ColumnName="B_ST_DATE" />
+                <ScalarProperty Name="B_CR_DATE" ColumnName="B_CR_DATE" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblbatchdetails">
+            <EntityTypeMapping TypeName="technotaskModel.tblbatchdetail">
+              <MappingFragment StoreEntitySet="tblbatchdetail">
+                <ScalarProperty Name="BD_ID" ColumnName="BD_ID" />
+                <ScalarProperty Name="B_ID" ColumnName="B_ID" />
+                <ScalarProperty Name="S_ID" ColumnName="S_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblcities">
+            <EntityTypeMapping TypeName="technotaskModel.tblcity">
+              <MappingFragment StoreEntitySet="tblcity">
+                <ScalarProperty Name="CT_ID" ColumnName="CT_ID" />
+                <ScalarProperty Name="Cityname" ColumnName="Cityname" />
+                <ScalarProperty Name="ST_ID" ColumnName="ST_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblfaculties">
+            <EntityTypeMapping TypeName="technotaskModel.tblfaculty">
+              <MappingFragment StoreEntitySet="tblfaculty">
+                <ScalarProperty Name="F_ID" ColumnName="F_ID" />
+                <ScalarProperty Name="F_Name" ColumnName="F_Name" />
+                <ScalarProperty Name="L_Name" ColumnName="L_Name" />
+                <ScalarProperty Name="E_mail" ColumnName="E_mail" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="F_Image" ColumnName="F_Image" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblstates">
+            <EntityTypeMapping TypeName="technotaskModel.tblstate">
+              <MappingFragment StoreEntitySet="tblstate">
+                <ScalarProperty Name="ST_ID" ColumnName="ST_ID" />
+                <ScalarProperty Name="Satename" ColumnName="Satename" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblstudents">
+            <EntityTypeMapping TypeName="technotaskModel.tblstudent">
+              <MappingFragment StoreEntitySet="tblstudent">
+                <ScalarProperty Name="S_ID" ColumnName="S_ID" />
+                <ScalarProperty Name="F_Name" ColumnName="F_Name" />
+                <ScalarProperty Name="L_Name" ColumnName="L_Name" />
+                <ScalarProperty Name="E_mail" ColumnName="E_mail" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="ST_ID" ColumnName="ST_ID" />
+                <ScalarProperty Name="CT_ID" ColumnName="CT_ID" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="S_img" ColumnName="S_img" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
