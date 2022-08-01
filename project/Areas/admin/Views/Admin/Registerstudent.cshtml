@@ -1,53 +1,60 @@
 ﻿@model project.EDM.tblstudent
 @{
     ViewBag.Title = "Registerstudent";
-    Layout = "~/Areas/admin/Views/Shared/_LayoutBlank.cshtml";
+    Layout = "~/Areas/admin/Views/Shared/_LayoutTheme.cshtml";
 }
+<main id="main" class="main">
 
-<main>
-    <div class="container">
+    <div class="pagetitle">
+        <h1>Student Rigister</h1>
+        @*<nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/admin/Admin">Home</a></li>
+                <li class="breadcrumb-item">Tables</li>
+                <li class="breadcrumb-item active">Data</li>
+            </ol>
+        </nav>*@
+    </div><!-- End Page Title -->
 
-        <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-12">
 
-                        <div class="d-flex justify-content-center py-4">
-                            <a href="index.html" class="logo d-flex align-items-center w-auto">
-                                <img src="~/Areas/admin/web/assets/img/logo.png" alt="">
-                                <span class="d-none d-lg-block">NiceAdmin</span>
-                            </a>
-                        </div><!-- End Logo -->
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            Student Rigister
+                            <!--<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalDialogScrollable">
+            Add+
+        </button>-->
+                        </h5>
+                        <!--<p>Add lightweight datatables to your project with using the <a href="https://github.com/fiduswriter/Simple-DataTables" target="_blank">Simple DataTables</a> library. Just add <code>.datatable</code> class name to any table you wish to conver to a datatable</p>-->
+                        <!-- Table with stripped rows -->
 
-                        <div class="card mb-3">
+                        @using (Html.BeginForm("Registerstudent", "Admin", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+                        {
+                            @Html.AntiForgeryToken()
+                    <div class="row g-3 needs-validation" novalidate>
+                        <div class="col-12" hidden>
+                            <input type="text" name="roll" class="form-control" value="Student" id="roll">
+                        </div>
+                        <div class="col-12">
+                            <label for="yourName" class="form-label">First Name</label>
+                            <input type="text" name="fname" class="form-control" id="yourName" required>
+                            <div class="invalid-feedback">Please, enter your name!</div>
+                        </div>
+                        <div class="col-12">
+                            <label for="yourName" class="form-label">Last Name</label>
+                            <input type="text" name="lname" class="form-control" id="lastName" required>
+                            <div class="invalid-feedback">Please, enter your name!</div>
+                        </div>
+                        <div class="col-12">
+                            <label for="yourEmail" class="form-label">Your Email</label>
+                            <input type="email" name="email" class="form-control" id="yourEmail" required>
+                            <div class="invalid-feedback">Please enter a valid Email adddress!</div>
+                        </div>
 
-                            <div class="card-body">
-
-                                <div class="pt-4 pb-2">
-                                    <h5 class="card-title text-center pb-0 fs-4">Create an Account</h5>
-                                    <p class="text-center small">Enter your personal details to create account</p>
-                                </div>
-                                @using (Html.BeginForm("Registerstudent","Admin", FormMethod.Post, new { @enctype = "multipart/form-data" }))
-                                {
-                                    @Html.AntiForgeryToken()
-                            <div class="row g-3 needs-validation" novalidate>
-                                <div class="col-12">
-                                    <label for="yourName" class="form-label">First Name</label>
-                                    <input type="text" name="fname" class="form-control" id="yourName" required>
-                                    <div class="invalid-feedback">Please, enter your name!</div>
-                                </div>
-                                <div class="col-12">
-                                    <label for="yourName" class="form-label">Last Name</label>
-                                    <input type="text" name="lname" class="form-control" id="lastName" required>
-                                    <div class="invalid-feedback">Please, enter your name!</div>
-                                </div>
-                                <div class="col-12">
-                                    <label for="yourEmail" class="form-label">Your Email</label>
-                                    <input type="email" name="email" class="form-control" id="yourEmail" required>
-                                    <div class="invalid-feedback">Please enter a valid Email adddress!</div>
-                                </div>
-
-                                <!--<div class="col-12">
+                        <!--<div class="col-12">
         <label for="yourUsername" class="form-label">Username</label>
         <div class="input-group has-validation">
             <span class="input-group-text" id="inputGroupPrepend">@@</span>
@@ -56,103 +63,109 @@
         </div>
     </div>-->
 
-                                <div class="col-12">
-                                    <label for="yourPassword" class="form-label">Password</label>
-                                    <input type="password" name="password" class="form-control" id="yourPassword" required>
-                                    <div class="invalid-feedback">Please enter your password!</div>
-                                </div>
-                                <div class="col-12">
-                                    <label for="yourmobile" class="form-label">Mobile</label>
-                                    <input type="number" name="mobile" class="form-control" id="yourmobile" required>
-                                    <div class="invalid-feedback">Please enter your mobile!</div>
-                                </div>
-                                <div class="col-12">
-                                    <label for="youraddress" class="form-label">Address</label>
-                                    <input type="text" name="address" class="form-control" id="youraddress" required>
-                                    <div class="invalid-feedback">Please enter your address!</div>
-                                </div>
-                                <div class="col-12">
-                                    <label for="yourstate" class="form-label">State</label>
-                                    <select id="state_id" name="state_id" class="form-control">
-                                        @foreach (var item in ViewBag.states)
-                                        {
-                                            <option value="@item.Value">@item.Text</option>
-                                        }
-                                    </select>
-                                    <!--@Html.LabelFor(model => model.ST_ID, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-12">
+                            <label for="yourPassword" class="form-label">Password</label>
+                            <input type="password" name="password" class="form-control" id="yourPassword" required>
+                            <div class="invalid-feedback">Please enter your password!</div>
+                        </div>
+                        <div class="col-12">
+                            <label for="yourmobile" class="form-label">Mobile</label>
+                            <input type="number" name="mobile" class="form-control" id="yourmobile" required>
+                            <div class="invalid-feedback">Please enter your mobile!</div>
+                        </div>
+                        <div class="col-12">
+                            <label for="youraddress" class="form-label">Address</label>
+                            <input type="text" name="address" class="form-control" id="youraddress" required>
+                            <div class="invalid-feedback">Please enter your address!</div>
+                        </div>
+                        <div class="col-12">
+                            <label for="yourstate" class="form-label">State</label>
+                            <select id="state_id" name="state_id" class="form-control">
+                                @foreach (var item in ViewBag.states)
+                                {
+                                    <option value="@item.Value">@item.Text</option>
+                                }
+                            </select>
+                            <!--@Html.LabelFor(model => model.ST_ID, htmlAttributes: new { @class = "control-label col-md-2" })
 
         @Html.DropDownListFor(model => model.ST_ID, ViewBag.states as List<SelectListItem>, "--- Select State ---", new { @class = "form-control" })
         @Html.ValidationMessageFor(model => model.ST_ID, "", new { @class = "text-danger" })-->
 
-                                    <div class="invalid-feedback">Please enter your state!</div>
-                                </div>
-                                <div class="col-12">
-                                    <label for="yourcity" class="form-label">City</label>
-                                    <div>
-                                        <select id="city_id" name="city_id" class="form-control">
-                                            <option>--- Select City ---</option>
-                                        </select>
-                                    </div>
-
-                                    <div class="invalid-feedback">Please enter your city!</div>
-                                </div>
-                                <div class="col-12">
-                                    <label for="stdstatus" class="form-label">Status</label>
-                                    <div>
-                                        
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="stdstatus" id="stdactive" value="Active" checked>
-                                            <label class="form-check-label" for="stdactive">
-                                                Active
-                                            </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="stdstatus" id="stdcomp" value="Complete">
-                                            <label class="form-check-label" for="stdcomp">
-                                                Complete
-                                            </label>
-                                        </div>
-                                      
-                                    </div>
-
-                                    <div class="invalid-feedback">Please select status!</div>
-                                </div>
-                                <div class="col-12">
-                                    <label for="yourcity" class="form-label">Profile Picture</label>
-                                    <input type="file" id="file" name="file" class="form-control" />
-                                    <div class="invalid-feedback">Please enter your Picture!</div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="form-check">
-                                        <input class="form-check-input" name="terms" type="checkbox" value="" id="acceptTerms" required>
-                                        <label class="form-check-label" for="acceptTerms">I agree and accept the <a href="#">terms and conditions</a></label>
-                                        <div class="invalid-feedback">You must agree before submitting.</div>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <button class="btn btn-primary w-100" type="submit">Create Account</button>
-                                </div>
-                                <div class="col-12">
-                                    <p class="small mb-0">Already have an account? <a href="Login">Log in</a></p>
-                                </div>
+                            <div class="invalid-feedback">Please enter your state!</div>
+                        </div>
+                        <div class="col-12">
+                            <label for="yourcity" class="form-label">City</label>
+                            <div>
+                                <select id="city_id" name="city_id" class="form-control">
+                                    <option>--- Select City ---</option>
+                                </select>
                             </div>
-                                }
+
+                            <div class="invalid-feedback">Please enter your city!</div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.B_ID, "Batch", htmlAttributes: new { @class = "control-label mb-1" })
+                            <div class="col-md-12">
+                                @Html.DropDownListFor(model => model.B_ID, ViewBag.batchname as List<SelectListItem>, "--- Select Batch ---", new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.B_ID, "", new { @class = "text-danger" })
                             </div>
                         </div>
+                        <div class="col-12">
+                            <label for="stdstatus" class="form-label">Status</label>
+                            <div>
 
-                        <div class="credits">
-                            <!-- All the links in the footer should remain intact. -->
-                            <!-- You can delete the links only if you purchased the pro version. -->
-                            <!-- Licensing information: https://bootstrapmade.com/license/ -->
-                            <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
-                            Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="stdstatus" id="stdactive" value="Active" checked>
+                                    <label class="form-check-label" for="stdactive">
+                                        Active
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="stdstatus" id="stdcomp" value="Complete">
+                                    <label class="form-check-label" for="stdcomp">
+                                        Complete
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="stdstatus" id="stdpend" value="Pending">
+                                    <label class="form-check-label" for="stdpend">
+                                        Pending
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="invalid-feedback">Please select status!</div>
                         </div>
+                        <div class="col-12">
+                            <label for="yourcity" class="form-label">Profile Picture</label>
+                            <input type="file" id="file" name="file" class="form-control" />
+                            <div class="invalid-feedback">Please enter your Picture!</div>
+                        </div>
+                        @*<div class="col-12">
+            <div class="form-check">
+                <input class="form-check-input" name="terms" type="checkbox" value="" id="acceptTerms" required>
+                <label class="form-check-label" for="acceptTerms">I agree and accept the <a href="#">terms and conditions</a></label>
+                <div class="invalid-feedback">You must agree before submitting.</div>
+            </div>
+        </div>*@
+                        <div class="col-12">
+                            <button class="btn btn-primary w-100" type="submit">Create Account</button>
+                        </div>
+                        @*<div class="col-12">
+            <p class="small mb-0">Already have an account? <a href="Login">Log in</a></p>
+        </div>*@
+                    </div>
+                        }
+
+
+                        <!-- End Table with stripped rows -->
 
                     </div>
                 </div>
+
             </div>
+        </div>
+    </section>
 
-        </section>
-
-    </div>
 </main><!-- End #main -->
+

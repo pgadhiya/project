@@ -18,6 +18,7 @@ namespace project.EDM
         public tblbatch()
         {
             this.tblbatchdetails = new HashSet<tblbatchdetail>();
+            this.tblstudents = new HashSet<tblstudent>();
         }
     
         public int B_ID { get; set; }
@@ -26,9 +27,13 @@ namespace project.EDM
         public Nullable<System.DateTime> B_ST_DATE { get; set; }
         public Nullable<System.DateTime> B_CR_DATE { get; set; }
         public string Status { get; set; }
+        public Nullable<int> T_ID { get; set; }
     
         public virtual tblfaculty tblfaculty { get; set; }
+        public virtual tbltechnology tbltechnology { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblbatchdetail> tblbatchdetails { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblstudent> tblstudents { get; set; }
     }
 }

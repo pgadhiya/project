@@ -14,12 +14,6 @@ namespace project.EDM
     
     public partial class tblstudent
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public tblstudent()
-        {
-            this.tblbatchdetails = new HashSet<tblbatchdetail>();
-        }
-    
         public int S_ID { get; set; }
         public string F_Name { get; set; }
         public string L_Name { get; set; }
@@ -31,9 +25,11 @@ namespace project.EDM
         public Nullable<int> Mobile { get; set; }
         public string Status { get; set; }
         public string S_img { get; set; }
+        public Nullable<int> B_ID { get; set; }
+        public string Roll { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tblbatchdetail> tblbatchdetails { get; set; }
+        public virtual tblbatch tblbatch { get; set; }
+        public virtual tblcity tblcity { get; set; }
         public virtual tblstate tblstate { get; set; }
     }
 }

@@ -1,0 +1,98 @@
+﻿@model project.EDM.tblbatch
+
+
+@{
+    ViewBag.Title = "RegisterBatch";
+    Layout = "~/Areas/admin/Views/Shared/_LayoutTheme.cshtml";
+}
+<main id="main" class="main">
+
+    <section class="section dashboard">
+        <div class="row">
+
+            <!-- Left side columns -->
+            <div class="col-lg-12">
+                <div class="row">
+                    <!--Batch Details Start-->
+                    <div class="col-12">
+                        <div class="card recent-sales overflow-auto">
+                            <div class="card-body">
+                                <h5 class="card-title">Batch <span>| Create</span></h5>
+                                @using (Html.BeginForm())
+                                {
+                                    @Html.AntiForgeryToken()
+
+                            <div class="form-horizontal">
+                                <hr />
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.B_Name, "Batch Name", htmlAttributes: new { @class = "control-label mb-1" })
+                                    <div class="col-md-12">
+                                        @Html.TextBoxFor(model => model.B_Name, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.B_Name, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.T_ID, "Faculty", htmlAttributes: new { @class = "control-label mb-1" })
+                                    <div class="col-md-12">
+                                        @Html.DropDownListFor(model => model.T_ID, ViewBag.technologyname as List<SelectListItem>, "--- Select Technology ---", new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.T_ID, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.F_ID, "Faculty", htmlAttributes: new { @class = "control-label mb-1" })
+                                    <div class="col-md-12">
+                                        @Html.DropDownListFor(model => model.F_ID, ViewBag.facultyname as List<SelectListItem>, "--- Select Faculty ---", new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.F_ID, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.B_ST_DATE, "Batch Start Date", htmlAttributes: new { @class = "control-label mb-1" })
+                                    <div class="col-md-12">
+                                        @Html.EditorFor(model => model.B_ST_DATE, new { htmlAttributes = new { @class = "form-control", type = "date" } })
+                                        @Html.ValidationMessageFor(model => model.B_ST_DATE, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.B_CR_DATE, "Batch Create Date", htmlAttributes: new { @class = "control-label mb-1" })
+                                    <div class="col-md-12">
+                                        @Html.EditorFor(model => model.B_CR_DATE, new { htmlAttributes = new { @class = "form-control", type = "date" } })
+                                        @Html.ValidationMessageFor(model => model.B_CR_DATE, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group" hidden>
+                                    @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label mb-1" })
+                                    <div class="col-md-12 mb-3">
+                                        @Html.RadioButtonFor(model => model.Status, "Pending", new { @checked = true }) Pending
+                                    </div>
+                                </div>
+
+                                <div class="form-group mt-2">
+                                    <div class="col-md-offset-2 col-md-10">
+                                        <input type="submit" value="Create" class="btn btn-primary" /> | @Html.ActionLink("Back to Home", "Index")
+                                    </div>
+                                </div>
+                            </div>
+                                }
+
+                               
+
+                            </div>
+
+                        </div>
+                    </div>
+                    <!--Batch Details End-->
+                    
+
+                </div>
+            </div><!-- End Left side columns -->
+        </div>
+    </section>
+
+</main><!-- End #main -->
+
+

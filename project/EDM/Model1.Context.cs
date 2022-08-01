@@ -32,5 +32,6 @@ namespace project.EDM
         public virtual DbSet<tblfaculty> tblfaculties { get; set; }
         public virtual DbSet<tblstate> tblstates { get; set; }
         public virtual DbSet<tblstudent> tblstudents { get; set; }
+        public virtual DbSet<tbltechnology> tbltechnologies { get; set; }
     }
 }

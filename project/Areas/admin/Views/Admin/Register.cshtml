@@ -31,6 +31,9 @@
                                 @using (Html.BeginForm("Register", "Admin", FormMethod.Post, new { @enctype = "multipart/form-data" }))
                                 {
                             <div class="row g-3 needs-validation" novalidate>
+                                <div class="col-12" hidden>
+                                    <input type="text" name="roll" class="form-control" value="Admin" id="roll">
+                                </div>
                                 <div class="col-12">
                                     <label for="yourName" class="form-label">First Name</label>
                                     <input type="text" name="fname" class="form-control" id="yourName" required>
@@ -55,7 +58,7 @@
                                 <div class="col-12">
                                     <label for="yourcity" class="form-label">Profile Picture</label>
                                     <input type="file" id="file" name="file" class="form-control" />
-                                    <div class="invalid-feedback">Please enter your Picture!</div>
+                                    <div class="invalid-feedback">Please upload your Picture!</div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-check">

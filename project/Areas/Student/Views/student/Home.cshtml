@@ -2,7 +2,8 @@
 @{
     ViewBag.Title = "Home";
     Layout = "~/Areas/Student/Views/Shared/_LayoutStudent.cshtml";
+    string uRoll = Session["userroll"] != null ? Session["userroll"].ToString() : "";
 }
 
 <h2>Home</h2>
-
+ 

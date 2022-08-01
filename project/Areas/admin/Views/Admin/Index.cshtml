@@ -16,10 +16,11 @@
                 $.each(facultylist, function (key, item) {
                     $("#tblfaculty").append("<tr>"
                         + "<td>" + item.F_ID + "</td>"
+                        + "<td><img src='/Images/" + item.F_Image + "' style='width: 50px' /></td>"
                         + "<td>" + item.F_Name + "</td>"
                         + "<td>" + item.L_Name + "</td>"
                         + "<td>" + item.E_mail + "</td>"
-                        + "<td><img src='/Images/" + item.F_Image + "' style='width: 50px' /></td>"
+                        
                         //+ "<td><a href='/Default/Edit/" + item.F_ID + "'>Edit</a> | <a href='/Default/Delete/" + item.F_ID + "'>Delete</a></td>"
                         + "</tr>");
                 });
@@ -30,13 +31,68 @@
             type: "GET",
             dataType: "json",
             success: function (batchlist) {
+                console.log(batchlist);
                 $.each(batchlist, function (key, item) {
+
+                    var formattedstdate = null;
+                    var formattedcrdate = null;
+                    if (item.B_ST_DATE != null) {
+                        var stdate = (new Date(parseInt(item.B_ST_DATE.substr(6))));
+
+                        const yyyy = stdate.getFullYear();
+                        let mm = stdate.getMonth() + 1; // Months start at 0!
+                        let dd = stdate.getDate();
+
+                        if (dd < 10) dd = '0' + dd;
+                        if (mm < 10) mm = '0' + mm;
+
+                         formattedstdate = dd + '/' + mm + '/' + yyyy;
+                    }
+                    if (item.B_ST_DATE != null) {
+                        var crdate = (new Date(parseInt(item.B_CR_DATE.substr(6))));
+
+                        const yyyy = crdate.getFullYear();
+                        let mm = crdate.getMonth() + 1; // Months start at 0!
+                        let dd = crdate.getDate();
+
+                        if (dd < 10) dd = '0' + dd;
+                        if (mm < 10) mm = '0' + mm;
+
+                        formattedcrdate = dd + '/' + mm + '/' + yyyy;
+                    }
+                    if (item.B_ST_DATE != null) {
+                        var months = new Array(12);
+                        months[0] = "January";
+                        months[1] = "February";
+                        months[2] = "March";
+                        months[3] = "April";
+                        months[4] = "May";
+                        months[5] = "June";
+                        months[6] = "July";
+                        months[7] = "August";
+                        months[8] = "September";
+                        months[9] = "October";
+                        months[10] = "November";
+                        months[11] = "December";
+
+                        var current_date = (new Date(parseInt(item.B_ST_DATE.substr(6))));
+                        current_date.setDate(current_date.getDate() + 0);
+                        month_value = current_date.getMonth();
+                        day_value = current_date.getDate();
+                        year_value = current_date.getFullYear();
+
+                        //document.write("The current date is " + months[month_value] + " " + day_value + ", " + year_value);
+                        formattedstdate1 = day_value + '_' + months[month_value];
+
+                    }
+                    //new Date(parseInt(item.B_ST_DATE(6)))
                     $("#tblbatch").append("<tr>"
                         + "<td>" + item.B_ID + "</td>"
-                        + "<td>" + item.B_Name + "</td>"
-                        + "<td>" + item.F_ID + "</td>"
-                        + "<td>" + item.B_ST_DATE + "</td>"
-                        + "<td>" + item.B_CR_DATE + "</td>"
+                        + "<td>" + formattedstdate1 + "_" + item.B_Name + "_" + item.T_Name + "_" + item.F_Name + "</td>"
+                        + "<td>" + item.F_Name + "</td>"
+                        + "<td>" + item.T_Name + "</td>"
+                        + "<td>" + formattedstdate  + "</td>"
+                        + "<td>" + formattedcrdate + "</td>"
                         + "<td>" + item.Status + "</td>"
                         //+ "<td><a href='/Default/Edit/" + item.F_ID + "'>Edit</a> | <a href='/Default/Delete/" + item.F_ID + "'>Delete</a></td>"
                         + "</tr>");
@@ -57,8 +113,8 @@
                         + "<td>" + item.L_Name + "</td>"
                         + "<td>" + item.E_mail + "</td>"
                         + "<td>" + item.Address + "</td>"
-                        + "<td>" + item.ST_ID + "</td>"
-                        + "<td>" + item.CT_ID + "</td>"
+                        + "<td>" + item.Satename + "</td>"
+                        + "<td>" + item.Cityname + "</td>"
                         + "<td>" + item.Mobile + "</td>"
                         + "<td>" + item.Status + "</td>"
                         //+ "<td><a href='/Default/Edit/" + item.F_ID + "'>Edit</a> | <a href='/Default/Delete/" + item.F_ID + "'>Delete</a></td>"
@@ -163,10 +219,11 @@
                                     <thead>
                                         <tr>
                                             <th scope="col">#</th>
+                                            <th scope="col">Image</th>
                                             <th scope="col">First Name</th>
                                             <th scope="col">Last Name</th>
                                             <th scope="col">Email</th>
-                                            <th scope="col">Image</th>
+
                                         </tr>
                                     </thead>
                                     <tbody id="tblfaculty">
@@ -189,6 +246,7 @@
                                             <th scope="col">#</th>
                                             <th scope="col">Batch Name</th>
                                             <th scope="col">Faculty Name</th>
+                                            <th scope="col">Technology</th>
                                             <th scope="col">Start Date</th>
                                             <th scope="col">Create Date</th>
                                             <th scope="col">Status</th>

@@ -1,0 +1,83 @@
+﻿@model project.EDM.tblfaculty
+
+@{
+    ViewBag.Title = "FacultyDelete";
+    Layout = "~/Areas/admin/Views/Shared/_LayoutTheme.cshtml";
+    var item = ViewBag.facultyobj as project.EDM.tblfaculty;
+}
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>Faculty Tables</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/admin/Admin">Home</a></li>
+                <li class="breadcrumb-item">Tables</li>
+                <li class="breadcrumb-item active">Data</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-12">
+
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            Faculty Delete
+                            <!--<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalDialogScrollable">
+                                Add+
+                            </button>-->
+                        </h5>
+                        <!--<p>Add lightweight datatables to your project with using the <a href="https://github.com/fiduswriter/Simple-DataTables" target="_blank">Simple DataTables</a> library. Just add <code>.datatable</code> class name to any table you wish to conver to a datatable</p>-->
+                        <!-- Table with stripped rows -->
+
+                        <h3>Are you sure you want to delete this?</h3>
+                        <div>
+                            <hr />
+                            <dl class="dl-horizontal">
+                                <dt>Employee ID</dt>
+                                <dd>@item.F_ID</dd>
+                                <dt>First Name</dt>
+                                <dd>@item.F_Name</dd>
+                                <dt>Last Name</dt>
+                                <dd>@item.L_Name</dd>
+                                <dt>Email</dt>
+                                <dd>@item.E_mail</dd>
+                                <dt>Image</dt>
+                                <dd>
+                                    <div class="mb-3">
+                                        <img src='~/Images/@item.F_Image' style="width:50px" />
+                                    </div>
+                                </dd>
+                            </dl>
+                            @using (Html.BeginForm())
+                            {
+                                <div>
+                                    <p>
+                                        <input type="submit" value="Delete" class="btn btn-danger" /> |
+                                        @Html.ActionLink("Back to List", "Index")
+                                    </p>
+                                </div>
+                            }
+                            @*@using (Html.BeginForm())
+                                {
+                                    @Html.AntiForgeryToken()
+
+                                    <div class="form-actions no-color">
+                                        <input type="submit" value="Delete" class="btn btn-default" /> |
+                                        @Html.ActionLink("Back to List", "Index")
+                                    </div>
+                                }*@
+                        </div>
+                        <!-- End Table with stripped rows -->
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+</main><!-- End #main -->

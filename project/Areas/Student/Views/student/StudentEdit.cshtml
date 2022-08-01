@@ -1,0 +1,298 @@
+﻿@model project.EDM.tblstudent
+
+@{
+    ViewBag.Title = "StudentEdit";
+
+
+    var item = ViewBag.studentobj as project.EDM.tblstudent;
+    string uRoll = Session["userroll"] != null ? Session["userroll"].ToString() : "";
+    if (uRoll == "Admin")
+    {
+        Layout = "~/Areas/admin/Views/Shared/_LayoutTheme.cshtml";
+    }else
+    {
+        Layout = "~/Areas/Student/Views/Shared/_LayoutStudent.cshtml";
+    }
+}
+<script>
+    $(document).ready(function () {
+        $("#state_id").val('@item.ST_ID');
+        if ('@item.Status' == 'Active') {
+            $("#stdactive").prop("checked", true);
+        } else if ('@item.Status' == 'Complete') {
+            $("#stdcomp").prop("checked", true);
+        }
+        else if ('@item.Status' == 'Pending') {
+            $("#stdpend").prop("checked", true);
+        }
+    $("#state_id").change(function () {
+        FillStateDropdown();
+    });
+    });
+
+    $(document).ready(function () {
+        FillStateDropdown();
+    });
+
+    function FillStateDropdown() {
+        $.ajax({
+            url: "../../student/GetCitiesByStateId",
+            type: "GET",
+            data: { id: $("#state_id").val() },
+            dataType: "json",
+            success: function (cities) {
+                $("#city_id").empty();
+                $("#city_id").append("<option>--- Select City ---</option>");
+                $.each(cities, function (key, item) {
+                    $("#city_id").append("<option value='" + item.CT_ID + "'>" + item.Cityname + "</option>");
+                });
+                if ('@item.S_ID' && '@item.CT_ID') {
+                    $("#city_id").val('@item.CT_ID');
+                }
+
+            }
+        });
+    }
+</script>
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>Student Tables</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/admin/Admin">Home</a></li>
+                <li class="breadcrumb-item">Tables</li>
+                <li class="breadcrumb-item active">Data</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-12">
+
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            Student Edit
+                            <!--<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalDialogScrollable">
+                                Add+
+                            </button>-->
+                        </h5>
+                        <!--<p>Add lightweight datatables to your project with using the <a href="https://github.com/fiduswriter/Simple-DataTables" target="_blank">Simple DataTables</a> library. Just add <code>.datatable</code> class name to any table you wish to conver to a datatable</p>-->
+                        <!-- Table with stripped rows -->
+
+                        @using (Html.BeginForm("StudentEdit", "student", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+                        {
+                            @Html.AntiForgeryToken()
+
+                            <div class="form-horizontal">
+
+                                <hr />
+                                @*@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                    @Html.HiddenFor(model => model.S_ID)*@
+                                <div class="form-group" hidden>
+                                    <label class="control-label">ID</label>
+                                    <input type="text" name="S_ID" value="@item.S_ID" class="form-control" />
+                                </div>
+
+                                @*<div class="form-group">
+                                        @Html.LabelFor(model => model.F_Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            @Html.EditorFor(model => model.F_Name, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.F_Name, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>*@
+                                <div class="form-group">
+                                    <label class="control-label">First Name</label>
+                                    <input type="text" name="fname" value="@item.F_Name" class="form-control" />
+                                </div>
+
+                                @*<div class="form-group">
+                                        @Html.LabelFor(model => model.L_Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            @Html.EditorFor(model => model.L_Name, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.L_Name, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>*@
+                                <div class="form-group">
+                                    <label class="control-label">Last Name</label>
+                                    <input type="text" name="L_Name" value="@item.L_Name" class="form-control" />
+                                </div>
+
+                                @*<div class="form-group">
+                                        @Html.LabelFor(model => model.E_mail, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            @Html.EditorFor(model => model.E_mail, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.E_mail, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>*@
+                                <div class="form-group">
+                                    <label class="control-label">Email</label>
+                                    <input type="text" name="E_mail" value="@item.E_mail" class="form-control" />
+                                </div>
+
+                                @*<div class="form-group">
+                                        @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>*@
+                                <div class="form-group">
+                                    <label class="control-label">Password</label>
+                                    <input type="text" name="Password" value="@item.Password" class="form-control" />
+                                </div>
+
+                                @*<div class="form-group">
+                                        @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>*@
+                                <div class="form-group">
+                                    <label class="control-label">Address</label>
+                                    <input type="text" name="Address" value="@item.Address" class="form-control" />
+                                </div>
+
+                                @*<div class="form-group">
+                                        @Html.LabelFor(model => model.ST_ID, "ST_ID", htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            @Html.DropDownList("ST_ID", null, htmlAttributes: new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.ST_ID, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>*@
+                                <div class="col-12">
+                                    <label for="yourstate" class="form-label">State</label>
+                                    <select id="state_id" name="state_id" class="form-control">
+                                        @foreach (var states in ViewBag.states)
+                                        {
+                                            <option value="@states.Value">@states.Text</option>
+                                        }
+                                    </select>
+                                    @*@Html.LabelFor(model => model.ST_ID, htmlAttributes: new { @class = "control-label col-md-2" })
+
+                                        @Html.DropDownListFor(model => model.ST_ID, ViewBag.states as List<SelectListItem>, "--- Select State ---", new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.ST_ID, "", new { @class = "text-danger" })*@
+
+                                    <div class="invalid-feedback">Please enter your state!</div>
+                                </div>
+                                @*<div class="form-group">
+                                        @Html.LabelFor(model => model.CT_ID, "CT_ID", htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            @Html.DropDownList("CT_ID", null, htmlAttributes: new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.CT_ID, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>*@
+                                <div class="col-12">
+                                    <label for="yourcity" class="form-label">City</label>
+                                    <div>
+                                        <select id="city_id" name="city_id" class="form-control">
+                                            <option>--- Select City ---</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="invalid-feedback">Please enter your city!</div>
+                                </div>
+
+                                @*<div class="form-group">
+                                        @Html.LabelFor(model => model.Mobile, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            @Html.EditorFor(model => model.Mobile, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.Mobile, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>*@
+                                <div class="form-group">
+                                    <label class="control-label">Mobile</label>
+                                    <input type="text" name="Mobile" value="@item.Mobile" class="form-control" />
+                                </div>
+                                @*<div class="form-group">
+                                        @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            @Html.EditorFor(model => model.Status, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>*@
+                                @if (@uRoll == "Admin")
+                                {
+                                    <label for="yourFaculty" class="control-label">Status</label>
+                                    <div class="form-group">
+
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="stdstatus" id="stdactive" value="Active" checked="@item.Status">
+                                            <label class="form-check-label" for="stdactive">
+                                                Active
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="stdstatus" id="stdcomp" value="Complete" checked="@item.Status">
+                                            <label class="form-check-label" for="stdcomp">
+                                                Complete
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="stdstatus" id="stdpend" value="Pending">
+                                            <label class="form-check-label" for="stdpend">
+                                                Pending
+                                            </label>
+                                        </div>
+                                    </div>
+                                }
+                                @*<div class="form-group">
+                                        @Html.LabelFor(model => model.S_img, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            @Html.EditorFor(model => model.S_img, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.S_img, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>*@
+                                <div class="form-group">
+                                    <label class="control-label">Image</label>
+                                    <div class="mb-3">
+                                        <img src='~/Images/@item.S_img' style="width:50px" />
+                                        @*<input type="text" name="fimage" value="@item.F_Image" class="form-control"/>*@
+                                    </div>
+                                    @*<div>
+                                            <input type="radio" id="no" value="noupdate" name="imgupdate" />
+                                            <label>No</label>
+                                            <input type="radio" id="nes" value="noupdate" name="imgupdate" />
+                                            <label>Yes</label>
+                                            <input type="file" id="file" name="file" value="@item.F_Image" class="form-control"/>
+                                        </div>*@
+                                    <input type="file" id="file" name="file" value="@item.S_img" class="form-control" />
+
+
+                                </div>
+                                <!-- End Condition -->
+
+
+
+
+
+                                <div class="form-group">
+                                    <div class="col-md-offset-2 col-md-10 my-3">
+                                        <input type="submit" value="Save" class="btn btn-secondary" /> |
+                                        @if (@uRoll == "Admin")
+                                        {
+                                            @Html.ActionLink("Back to List", "Index");
+                                        }else{
+                                            @Html.ActionLink("Back to Home", "Home");
+                                        }
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+
+                        <!-- End Table with stripped rows -->
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+</main><!-- End #main -->

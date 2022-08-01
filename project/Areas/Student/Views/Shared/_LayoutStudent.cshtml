@@ -1,7 +1,11 @@
-﻿@model IEnumerable<project.EDM.tblstudent>
+﻿@*@model IEnumerable<project.EDM.tblstudent>*@
+@model project.EDM.tblstudent
 @{
     string username = Session["UserName"] != null ? Session["UserName"].ToString() : "";
     string upic = Session["profimg"] != null ? Session["profimg"].ToString() : "";
+    string uid = Session["UserId"] != null ? Session["UserId"].ToString() : "";
+    string batchid = Session["batch"] != null ? Session["batch"].ToString() : "";
+
     //string filename = "";
 }
 <!DOCTYPE html>
@@ -35,6 +39,7 @@
 
     <!-- Template Main CSS File -->
     <link href="~/Areas/Admin/web/assets/css/style.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 </head>
 <body>
     <header id="header" class="header fixed-top d-flex align-items-center">
@@ -53,19 +58,19 @@
                 <li class="nav-item dropdown pe-3">
                     @if (username != "")
                     {
-                    <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-                       
+                        <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
 
-                        @if (!string.IsNullOrEmpty(upic))
-                        {
-                            <img src="@Url.Action( @upic,"~/../../Images" )" alt="Profile" class="rounded-circle" />
-                        }
-                        else
-                        {
-                            <img src="/../../Images/userdefault.png" alt="Profile" class="rounded-circle" />
-                        }
-                        <span class="d-none d-md-block dropdown-toggle ps-2">@username</span>
-                    </a>
+
+                            @if (!string.IsNullOrEmpty(upic))
+                            {
+                                <img src="@Url.Action( @upic,"~/../../Images" )" alt="Profile" class="rounded-circle" />
+                            }
+                            else
+                            {
+                                <img src="/../../Images/userdefault.png" alt="Profile" class="rounded-circle" />
+                            }
+                            <span class="d-none d-md-block dropdown-toggle ps-2">@username</span>
+                        </a>
                         <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
 
 
@@ -77,15 +82,14 @@
                                 <hr class="dropdown-divider">
                             </li>
                             <li>
-                                <a class="dropdown-item d-flex align-items-center" href="Login">
+                                <a class="dropdown-item d-flex align-items-center" href="../../../admin/Admin/Defaulthome">
                                     <i class="bi bi-box-arrow-right"></i>
                                     <span>Sign Out</span>
                                 </a>
                             </li>
 
-
                         </ul>
-                        
+
                     }
                     else
                     {
@@ -105,38 +109,58 @@
 
             <ul class="sidebar-nav" id="sidebar-nav">
 
+                @*
+                    <li class="nav-item">
+                        <a class="nav-link " href="Home">
+                            <i class="bi bi-grid"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>*@
                 <li class="nav-item">
-                    <a class="nav-link " href="Home">
+                    <a class="nav-link " href="/Student/student/StudentDetails/@uid">
+                        <i class="bi bi-person"></i>
+                        <span>Profile</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " href="/Student/student/StudentEdit/@uid ">
+                        <i class="bi bi-credit-card-2-front"></i>
+                        <span>Manage Profile</span>
+                    </a>
+                    
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " href="/Batches/batch/BatchEdit/@batchid">
                         <i class="bi bi-grid"></i>
-                        <span>Dashboard</span>
+                        <span>View Batch Info</span>
                     </a>
                 </li>
                 <!-- End Dashboard Nav -->
-                <li class="nav-item">
-                    <a class="nav-link collapsed" data-bs-target="#register-nav" data-bs-toggle="collapse" href="#">
-                        <i class="bi bi-card-list"></i>
-                        <span>Detail</span>
-                        <i class="bi bi-chevron-down ms-auto"></i>
-                    </a>
-                    <ul id="register-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                        
-                        <li>
-                            <a href="#">
-                                <i class="bi bi-circle"></i><span>Profile</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <i class="bi bi-circle"></i><span>Manage Profile</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <i class="bi bi-circle"></i><span>View Batch Info</span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
+                @*<li class="nav-item active">
+                        <a class="nav-link collapsed" data-bs-target="#register-nav" data-bs-toggle="collapse" href="#">
+                            <i class="bi bi-card-list"></i>
+                            <span>Detail</span>
+                            <i class="bi bi-chevron-down ms-auto"></i>
+                        </a>
+                        <ul id="register-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+
+                            <li>
+                                <a href="#">
+                                    <i class="bi bi-circle"></i><span>Profile</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="bi bi-circle"></i><span>Manage Profile</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="bi bi-circle"></i><span>View Batch Info</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>*@
                 <!-- End Register Page Nav -->
             </ul>
 

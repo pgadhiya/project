@@ -12,19 +12,18 @@ namespace project.EDM
     using System;
     using System.Collections.Generic;
     
-    public partial class tblcity
+    public partial class tbltechnology
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public tblcity()
+        public tbltechnology()
         {
-            this.tblstudents = new HashSet<tblstudent>();
+            this.tblbatches = new HashSet<tblbatch>();
         }
     
-        public int CT_ID { get; set; }
-        public string Cityname { get; set; }
-        public Nullable<int> ST_ID { get; set; }
+        public int T_ID { get; set; }
+        public string T_Name { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tblstudent> tblstudents { get; set; }
+        public virtual ICollection<tblbatch> tblbatches { get; set; }
     }
 }

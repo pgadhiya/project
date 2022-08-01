@@ -1,0 +1,226 @@
+﻿@model project.EDM.tblbatch
+
+@{
+    ViewBag.Title = "BatchEdit";
+
+    string username = Session["UserName"] != null ? Session["UserName"].ToString() : "";
+    string upic = Session["profimg"] != null ? Session["profimg"].ToString() : "";
+    string uRoll = Session["userroll"] != null ? Session["userroll"].ToString() : "";
+    var item = ViewBag.batchobj as project.EDM.tblbatch;
+    var techno = ViewBag.technologies as project.EDM.tbltechnology;
+    var facul = ViewBag.faculties as project.EDM.tblfaculty;
+    if (uRoll == "Admin")
+    {
+        Layout = "~/Areas/admin/Views/Shared/_LayoutTheme.cshtml";
+    }
+    else
+    {
+        Layout = "~/Areas/Student/Views/Shared/_LayoutStudent.cshtml";
+    }
+}
+<script>
+    $(document).ready(function () {
+        $("#Faculty_id").val('@item.F_ID');
+        $("#technologies_id").val('@item.T_ID');
+        $("#B_ST_DATE").val('@item.B_ST_DATE');
+        $("#B_CR_DATE").val('@item.B_CR_DATE');
+        if ('@item.Status' == 'Running') {
+            $("#BatchRunning").prop("checked", true);
+        } else if ('@item.Status' == 'Complete') {
+            $("#batchcomp").prop("checked", true);
+        }else if ('@item.Status' == 'Pending') {
+            $("#batchpend").prop("checked", true);
+        }
+
+    });
+
+
+</script>
+@if (uRoll == "Admin")
+{
+
+
+    <main id="main" class="main">
+
+        <div class="pagetitle">
+            <h1>Batch Details</h1>
+            @*<nav>
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/admin/Admin">Home</a></li>
+                        <li class="breadcrumb-item">Tables</li>
+                        <li class="breadcrumb-item active">Data</li>
+                    </ol>
+                </nav>*@
+        </div><!-- End Page Title -->
+
+        <section class="section">
+            <div class="row">
+                <div class="col-lg-12">
+
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                Batch Edit
+                                <!--<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalDialogScrollable">
+                                    Add+
+                                </button>-->
+                            </h5>
+                            <!--<p>Add lightweight datatables to your project with using the <a href="https://github.com/fiduswriter/Simple-DataTables" target="_blank">Simple DataTables</a> library. Just add <code>.datatable</code> class name to any table you wish to conver to a datatable</p>-->
+                            <!-- Table with stripped rows -->
+
+                            @using (Html.BeginForm())
+                            {
+                                @Html.AntiForgeryToken()
+
+                                <div class="form-horizontal">
+
+                                    @*@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                        @Html.HiddenFor(model => model.B_ID)*@
+                                    <div class="form-group" hidden>
+                                        <label class="control-label">ID</label>
+                                        <input type="text" name="B_ID" value="@item.B_ID" class="form-control" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label">Batch Name</label>
+                                        <input type="text" name="B_Name" value="@item.B_Name" class="form-control" />
+                                    </div>
+                                    <div class="col-12">
+                                        <label for="yourtechnologies" class="control-label">Technology</label>
+                                        <select id="technologies_id" name="technologies_id" class="form-control">
+                                            @foreach (var technology in ViewBag.technologies)
+                                            {
+                                                <option value="@technology.Value">@technology.Text</option>
+                                            }
+                                        </select>
+                                    </div>
+                                    <div class="col-12">
+                                        <label for="yourFaculty" class="control-label">Faculty</label>
+                                        <select id="Faculty_id" name="Faculty_id" class="form-control">
+                                            @foreach (var faculties in ViewBag.faculties)
+                                            {
+                                                <option value="@faculties.Value">@faculties.Text</option>
+                                            }
+                                        </select>
+                                    </div>
+
+                                    @*<div class="form-group">
+                                            @Html.LabelFor(model => model.B_ST_DATE, htmlAttributes: new { @class = "control-label col-md-2" })
+                                            <div class="col-md-12">
+                                                @Html.EditorFor(model => model.B_ST_DATE, new { htmlAttributes = new { @class = "form-control", type = "date" } })
+                                                @Html.ValidationMessageFor(model => model.B_ST_DATE, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>*@
+                                    <div class="form-group">
+                                        <label class="control-label">Batch Start Date</label>
+                                        <input type="date" name="B_ST_DATE" value="@item.B_ST_DATE" id="B_ST_DATE" class="form-control" />
+                                    </div>
+
+                                    @*<div class="form-group">
+                                            @Html.LabelFor(model => model.B_CR_DATE, htmlAttributes: new { @class = "control-label col-md-2" })
+                                            <div class="col-md-12">
+                                                @Html.EditorFor(model => model.B_CR_DATE, new { htmlAttributes = new { @class = "form-control", type = "date" } })
+                                                @Html.ValidationMessageFor(model => model.B_CR_DATE, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>*@
+                                    <div class="form-group">
+                                        <label class="control-label">Batch Start Date</label>
+                                        <input type="date" name="B_CR_DATE" value="@item.B_CR_DATE" id="B_CR_DATE" class="form-control" />
+                                    </div>
+                                    <label for="yourFaculty" class="control-label">Status</label>
+                                    <div class="form-group">
+
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="Status" id="BatchRunning" value="Running" checked="@item.Status">
+                                            <label class="form-check-label" for="BatchRunning">
+                                                Running
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="Status" id="batchcomp" value="Complete" checked="@item.Status">
+                                            <label class="form-check-label" for="batchcomp">
+                                                Complete
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="Status" id="batchpend" value="Pending" checked="@item.Status">
+                                            <label class="form-check-label" for="batchpend">
+                                                Pending
+                                            </label>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group mt-2">
+                                        <div class="col-md-offset-2 col-md-10">
+                                            <input type="submit" value="Save" class="btn btn-primary" /> | @Html.ActionLink("Back to List", "Index")
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            <!-- End Table with stripped rows -->
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </main><!-- End #main -->
+}
+else if (uRoll == "Student")
+
+{
+    <main id="main" class="main">
+
+        <div class="pagetitle">
+            <h1>Batch Details</h1>
+            @*<nav>
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/admin/Admin">Home</a></li>
+                        <li class="breadcrumb-item">Tables</li>
+                        <li class="breadcrumb-item active">Data</li>
+                    </ol>
+                </nav>*@
+        </div><!-- End Page Title -->
+
+        <section class="section">
+            <div class="row">
+                <div class="col-lg-12">
+
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                Batch Details
+                                <!--<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalDialogScrollable">
+        Add+
+    </button>-->
+                            </h5>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Batch Name</th>
+                                        <th>Batch Start Date</th>
+                                        <th>Batch Create Date</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>@item.B_Name</td>
+                                        <td>@item.B_ST_DATE</td>
+                                        <td>@item.B_CR_DATE</td>
+                                        <td>@item.Status</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </main><!-- End #main -->
+}
+

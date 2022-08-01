@@ -20,5 +20,6 @@ namespace project.EDM
         public string E_mail { get; set; }
         public string Password { get; set; }
         public string A_Image { get; set; }
+        public string Roll { get; set; }
     }
 }

@@ -26,6 +26,7 @@ namespace project.EDM
         public string E_mail { get; set; }
         public string Password { get; set; }
         public string F_Image { get; set; }
+        public string Roll { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblbatch> tblbatches { get; set; }
