@@ -15,8 +15,9 @@
     }
 }
 <script>
-    $(document).ready(function () {
+      $(document).ready(function () {
         $("#state_id").val('@item.ST_ID');
+        $("#city_id").val('@item.CT_ID');
         if ('@item.Status' == 'Active') {
             $("#stdactive").prop("checked", true);
         } else if ('@item.Status' == 'Complete') {
@@ -53,6 +54,7 @@
             }
         });
     }
+  
 </script>
 <main id="main" class="main">
 

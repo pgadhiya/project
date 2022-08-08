@@ -19,5 +19,6 @@ namespace project.EDM
         public Nullable<int> S_ID { get; set; }
     
         public virtual tblbatch tblbatch { get; set; }
+        public virtual tblstudent tblstudent { get; set; }
     }
 }

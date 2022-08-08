@@ -1,0 +1,64 @@
+﻿@model project.EDM.tblbatchdetail
+
+@{
+    ViewBag.Title = "BatchDetails1";
+    Layout = "~/Areas/admin/Views/Shared/_LayoutTheme.cshtml";
+}
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            url: "/batch/BatchDetails1",
+            type: "GET",
+            dataType: "json",
+            success: function (batchlist) {
+                //console.log(batchlist);
+                $.each(batchlist, function (key, item) {
+                    //new Date(parseInt(item.B_ST_DATE(6)))
+                    $("#tblbatchdetail").append("<tr>"
+                        + "<td>" + item.B_Name + "</td>"
+                        + "<td>" + item.S_Name + "</td>"
+                        + "</tr>");
+                });
+            }
+        });
+    });
+</script>
+<h2>BatchDetails1</h2>
+
+<div>
+    <h4>tblbatchdetail</h4>
+    <hr />
+    <table>
+        <thead>
+            <tr>
+                <th>Batch</th>
+                <th>Student</th>
+            </tr>
+        </thead>
+        <tbody id="tblbatchdetail">
+            
+        </tbody>
+    </table>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.S_ID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.S_ID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tblbatch.B_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tblbatch.B_Name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.BD_ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

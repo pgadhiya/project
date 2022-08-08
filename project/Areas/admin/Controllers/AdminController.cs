@@ -137,6 +137,7 @@ namespace project.Areas.admin.Controllers
 
 
             tblstudent obj = new tblstudent();
+            //tblbatchdetail obj1 = new tblbatchdetail();
 
             obj.F_Name = fc["fname"];
             obj.L_Name = fc["lname"];
@@ -176,9 +177,20 @@ namespace project.Areas.admin.Controllers
                 obj.S_img = filename;
             }
             dc.tblstudents.Add(obj);
+
             dc.SaveChanges();
 
-            return RedirectToAction("../../Student/student/Login");
+            tblbatchdetail obj1 = new tblbatchdetail();
+            
+            if (!string.IsNullOrEmpty(batch))
+            {
+                obj1.B_ID = Convert.ToInt32(batch);
+            }
+            obj1.S_ID = obj.S_ID;
+
+            dc.tblbatchdetails.Add(obj1);
+            dc.SaveChanges();
+            return RedirectToAction("../../Student/student/Index");
         }
         public ActionResult RegisterBatch()
         {

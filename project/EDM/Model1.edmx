@@ -131,6 +131,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_tblbatchdetail_tblstudent">
+          <End Role="tblstudent" Type="Self.tblstudent" Multiplicity="0..1" />
+          <End Role="tblbatchdetail" Type="Self.tblbatchdetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblstudent">
+              <PropertyRef Name="S_ID" />
+            </Principal>
+            <Dependent Role="tblbatchdetail">
+              <PropertyRef Name="S_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_tblstudent_tblbatch">
           <End Role="tblbatch" Type="Self.tblbatch" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
@@ -194,6 +206,10 @@
             <End Role="tblbatch" EntitySet="tblbatch" />
             <End Role="tblbatchdetail" EntitySet="tblbatchdetail" />
           </AssociationSet>
+          <AssociationSet Name="FK_tblbatchdetail_tblstudent" Association="Self.FK_tblbatchdetail_tblstudent">
+            <End Role="tblstudent" EntitySet="tblstudent" />
+            <End Role="tblbatchdetail" EntitySet="tblbatchdetail" />
+          </AssociationSet>
           <AssociationSet Name="FK_tblstudent_tblbatch" Association="Self.FK_tblstudent_tblbatch">
             <End Role="tblbatch" EntitySet="tblbatch" />
             <End Role="tblstudent" EntitySet="tblstudent" />
@@ -248,6 +264,7 @@
           <Property Name="B_ID" Type="Int32" />
           <Property Name="S_ID" Type="Int32" />
           <NavigationProperty Name="tblbatch" Relationship="Self.FK_tblbatchdetail_tblbatch" FromRole="tblbatchdetail" ToRole="tblbatch" />
+          <NavigationProperty Name="tblstudent" Relationship="Self.FK_tblbatchdetail_tblstudent" FromRole="tblbatchdetail" ToRole="tblstudent" />
         </EntityType>
         <EntityType Name="tblcity">
           <Key>
@@ -297,6 +314,7 @@
           <Property Name="B_ID" Type="Int32" />
           <Property Name="Roll" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="tblbatch" Relationship="Self.FK_tblstudent_tblbatch" FromRole="tblstudent" ToRole="tblbatch" />
+          <NavigationProperty Name="tblbatchdetails" Relationship="Self.FK_tblbatchdetail_tblstudent" FromRole="tblstudent" ToRole="tblbatchdetail" />
           <NavigationProperty Name="tblcity" Relationship="Self.FK_tblstudent_tblcity" FromRole="tblstudent" ToRole="tblcity" />
           <NavigationProperty Name="tblstate" Relationship="Self.FK_tblstudent_tblstate" FromRole="tblstudent" ToRole="tblstate" />
         </EntityType>
@@ -364,6 +382,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_tblbatchdetail_tblstudent">
+          <End Role="tblstudent" Type="Self.tblstudent" Multiplicity="0..1" />
+          <End Role="tblbatchdetail" Type="Self.tblbatchdetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblstudent">
+              <PropertyRef Name="S_ID" />
+            </Principal>
+            <Dependent Role="tblbatchdetail">
+              <PropertyRef Name="S_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_tblstudent_tblcity">
           <End Role="tblcity" Type="Self.tblcity" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
@@ -416,6 +446,10 @@
           <AssociationSet Name="FK_tblstudent_tblbatch" Association="Self.FK_tblstudent_tblbatch">
             <End Role="tblbatch" EntitySet="tblbatches" />
             <End Role="tblstudent" EntitySet="tblstudents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblbatchdetail_tblstudent" Association="Self.FK_tblbatchdetail_tblstudent">
+            <End Role="tblstudent" EntitySet="tblstudents" />
+            <End Role="tblbatchdetail" EntitySet="tblbatchdetails" />
           </AssociationSet>
           <AssociationSet Name="FK_tblstudent_tblcity" Association="Self.FK_tblstudent_tblcity">
             <End Role="tblcity" EntitySet="tblcities" />

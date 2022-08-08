@@ -94,7 +94,7 @@ namespace project.Areas.Student.Controllers
             }
             //obj.CT_ID = Convert.ToInt32(fc["CT_ID"]);
             string ct = fc["city_id"];
-            if (!string.IsNullOrEmpty(st))
+            if (!string.IsNullOrEmpty(ct))
             {
                 obj.CT_ID = Convert.ToInt32(ct);
             }
@@ -114,15 +114,16 @@ namespace project.Areas.Student.Controllers
 
             dc.Entry(obj).State = System.Data.Entity.EntityState.Modified;
             dc.SaveChanges();
-            if(obj.Roll == "Admin")
-            {
-                return RedirectToAction("Index");
-            }
-            else
-            {
-                return RedirectToAction("Home");
-            }
-            
+            //if(uRoll == "Admin")
+            //{
+            //    return RedirectToAction("Index");
+            //}
+            //else
+            //{
+            //    return RedirectToAction("Home");
+            //}
+            return RedirectToAction("Index");
+
         }
         public ActionResult StudentDelete(int id)
         {

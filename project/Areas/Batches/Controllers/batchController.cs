@@ -15,6 +15,29 @@ namespace project.Areas.Batches.Controllers
         {
             return View();
         }
+        public ActionResult BatchDetails(int id)
+        {
+
+            return View(dc.tblbatches.Find(id));
+        }
+        public ActionResult BatchDetails1()
+        {
+
+            dc.Configuration.ProxyCreationEnabled = false;
+            List<tblbatch> List = new List<tblbatch>();
+            var List1 = dc.tblbatchdetails.Include("tblbatch").Include("tblstudent").Select(x => new
+            {
+               
+                //id = x.B_ID,
+                B_ID = x.B_ID,
+                S_ID = x.S_ID,
+                B_Name = x.tblbatch != null ? x.tblbatch.B_Name : "",
+                S_Name = x.tblstudent != null ? x.tblstudent.F_Name : "",
+                
+            }).ToList();
+
+            return Json(List1, JsonRequestBehavior.AllowGet);
+        }
         public JsonResult GetBatch()
         {
             dc.Configuration.ProxyCreationEnabled = false;
