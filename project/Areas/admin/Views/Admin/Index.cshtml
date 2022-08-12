@@ -46,7 +46,7 @@
                         if (dd < 10) dd = '0' + dd;
                         if (mm < 10) mm = '0' + mm;
 
-                         formattedstdate = dd + '/' + mm + '/' + yyyy;
+                        formattedstdate = dd + '/' + mm + '/' + yyyy;
                     }
                     if (item.B_ST_DATE != null) {
                         var crdate = (new Date(parseInt(item.B_CR_DATE.substr(6))));
@@ -86,16 +86,43 @@
 
                     }
                     //new Date(parseInt(item.B_ST_DATE(6)))
-                    $("#tblbatch").append("<tr>"
-                        + "<td>" + item.B_ID + "</td>"
-                        + "<td>" + formattedstdate1 + "_" + item.B_Name + "_" + item.T_Name + "_" + item.F_Name + "</td>"
-                        + "<td>" + item.F_Name + "</td>"
-                        + "<td>" + item.T_Name + "</td>"
-                        + "<td>" + formattedstdate  + "</td>"
-                        + "<td>" + formattedcrdate + "</td>"
-                        + "<td>" + item.Status + "</td>"
-                        //+ "<td><a href='/Default/Edit/" + item.F_ID + "'>Edit</a> | <a href='/Default/Delete/" + item.F_ID + "'>Delete</a></td>"
-                        + "</tr>");
+                    if (item.Status == "Pending") {
+                        $("#tblbatch").append("<tr>"
+                            + "<td>" + item.B_ID + "</td>"
+                            + "<td>" + formattedstdate1 + "_" + item.B_Name + "_" + item.T_Name + "_" + item.F_Name + "</td>"
+                            + "<td>" + item.F_Name + "</td>"
+                            + "<td>" + item.T_Name + "</td>"
+                            + "<td>" + formattedstdate + "</td>"
+                            + "<td>" + formattedcrdate + "</td>"
+                            + "<td><span class='badge bg-danger'>" + item.Status + "</span></td>"
+                            //+ "<td><a href='/Default/Edit/" + item.F_ID + "'>Edit</a> | <a href='/Default/Delete/" + item.F_ID + "'>Delete</a></td>"
+                            + "</tr>");
+                   
+                    }
+                    else if (item.Status == "Complete") {
+                        $("#tblbatch").append("<tr>"
+                            + "<td>" + item.B_ID + "</td>"
+                            + "<td>" + formattedstdate1 + "_" + item.B_Name + "_" + item.T_Name + "_" + item.F_Name + "</td>"
+                            + "<td>" + item.F_Name + "</td>"
+                            + "<td>" + item.T_Name + "</td>"
+                            + "<td>" + formattedstdate + "</td>"
+                            + "<td>" + formattedcrdate + "</td>"
+                            + "<td><span class='badge bg-success'>" + item.Status + "</span></td>"
+                            //+ "<td><a href='/Default/Edit/" + item.F_ID + "'>Edit</a> | <a href='/Default/Delete/" + item.F_ID + "'>Delete</a></td>"
+                            + "</tr>");
+                    }
+                    else if (item.Status == "Running") {
+                        $("#tblbatch").append("<tr>"
+                            + "<td>" + item.B_ID + "</td>"
+                            + "<td>" + formattedstdate1 + "_" + item.B_Name + "_" + item.T_Name + "_" + item.F_Name + "</td>"
+                            + "<td>" + item.F_Name + "</td>"
+                            + "<td>" + item.T_Name + "</td>"
+                            + "<td>" + formattedstdate + "</td>"
+                            + "<td>" + formattedcrdate + "</td>"
+                            + "<td><span class='badge bg-warning'>" + item.Status + "</span></td>"
+                            //+ "<td><a href='/Default/Edit/" + item.F_ID + "'>Edit</a> | <a href='/Default/Delete/" + item.F_ID + "'>Delete</a></td>"
+                            + "</tr>");
+                    }
                 });
             }
         });
@@ -106,19 +133,51 @@
             dataType: "json",
             success: function (studentlist) {
                 $.each(studentlist, function (key, item) {
-                    $("#tblstudent").append("<tr>"
-                        + "<td>" + item.S_ID + "</td>"
-                        + "<td><img src='/Images/" + item.S_img + "' style='width: 50px' /></td>"
-                        + "<td>" + item.F_Name + "</td>"
-                        + "<td>" + item.L_Name + "</td>"
-                        + "<td>" + item.E_mail + "</td>"
-                        + "<td>" + item.Address + "</td>"
-                        + "<td>" + item.Satename + "</td>"
-                        + "<td>" + item.Cityname + "</td>"
-                        + "<td>" + item.Mobile + "</td>"
-                        + "<td>" + item.Status + "</td>"
-                        //+ "<td><a href='/Default/Edit/" + item.F_ID + "'>Edit</a> | <a href='/Default/Delete/" + item.F_ID + "'>Delete</a></td>"
-                        + "</tr>");
+                    if (item.Status == "Pending") {
+                        $("#tblstudent").append("<tr>"
+                            + "<td>" + item.S_ID + "</td>"
+                            + "<td><img src='/Images/" + item.S_img + "' style='width: 50px' /></td>"
+                            + "<td>" + item.F_Name + "</td>"
+                            + "<td>" + item.L_Name + "</td>"
+                            + "<td>" + item.E_mail + "</td>"
+                            + "<td>" + item.Address + "</td>"
+                            + "<td>" + item.Satename + "</td>"
+                            + "<td>" + item.Cityname + "</td>"
+                            + "<td>" + item.Mobile + "</td>"
+                            + "<td><span class='badge bg-danger'>" + item.Status + "</span></td>"
+                            //+ "<td><a href='/Default/Edit/" + item.F_ID + "'>Edit</a> | <a href='/Default/Delete/" + item.F_ID + "'>Delete</a></td>"
+                            + "</tr>");
+                    }
+                    else if (item.Status == "Complete") {
+                        $("#tblstudent").append("<tr>"
+                            + "<td>" + item.S_ID + "</td>"
+                            + "<td><img src='/Images/" + item.S_img + "' style='width: 50px' /></td>"
+                            + "<td>" + item.F_Name + "</td>"
+                            + "<td>" + item.L_Name + "</td>"
+                            + "<td>" + item.E_mail + "</td>"
+                            + "<td>" + item.Address + "</td>"
+                            + "<td>" + item.Satename + "</td>"
+                            + "<td>" + item.Cityname + "</td>"
+                            + "<td>" + item.Mobile + "</td>"
+                            + "<td><span class='badge bg-success'>" + item.Status + "</span></td>"
+                            //+ "<td><a href='/Default/Edit/" + item.F_ID + "'>Edit</a> | <a href='/Default/Delete/" + item.F_ID + "'>Delete</a></td>"
+                            + "</tr>");
+                    }
+                    else if (item.Status == "Active") {
+                        $("#tblstudent").append("<tr>"
+                            + "<td>" + item.S_ID + "</td>"
+                            + "<td><img src='/Images/" + item.S_img + "' style='width: 50px' /></td>"
+                            + "<td>" + item.F_Name + "</td>"
+                            + "<td>" + item.L_Name + "</td>"
+                            + "<td>" + item.E_mail + "</td>"
+                            + "<td>" + item.Address + "</td>"
+                            + "<td>" + item.Satename + "</td>"
+                            + "<td>" + item.Cityname + "</td>"
+                            + "<td>" + item.Mobile + "</td>"
+                            + "<td><span class='badge bg-warning'>" + item.Status + "</span></td>"
+                            //+ "<td><a href='/Default/Edit/" + item.F_ID + "'>Edit</a> | <a href='/Default/Delete/" + item.F_ID + "'>Delete</a></td>"
+                            + "</tr>");
+                    }
                 });
             }
         });

@@ -225,7 +225,6 @@
     <Content Include="Areas\Faculty\Views\faculty\Login.cshtml" />
     <Content Include="Areas\Faculty\Views\faculty\Facultyhome.cshtml" />
     <Content Include="Areas\Faculty\Views\Shared\_LayoutFaculty.cshtml" />
-    <Content Include="Areas\Student\Views\student\Home.cshtml" />
     <Content Include="Areas\Student\Views\Shared\_LayoutStudent.cshtml" />
     <Content Include="Areas\Student\Views\student\Login.cshtml" />
     <Content Include="Areas\admin\Views\Admin\Registerstudent.cshtml" />
@@ -257,6 +256,9 @@
       <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
     <Content Include="Areas\Batches\Views\batch\BatchDetails1.cshtml" />
+    <Content Include="Areas\Student\Views\student\StudentProfileEdit.cshtml" />
+    <Content Include="Areas\Student\Views\student\Home.cshtml" />
+    <Content Include="Areas\Faculty\Views\faculty\Mybatches.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

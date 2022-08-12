@@ -106,7 +106,7 @@ namespace project.Areas.Faculty.Controllers
             ViewBag.facultyobj = data;
             return View();
         }
-
+        
         [HttpPost]
         [ActionName("FacultyDelete")]
         public ActionResult FacultyDeleteRec(int id)
@@ -116,6 +116,53 @@ namespace project.Areas.Faculty.Controllers
             dc.SaveChanges();
             return RedirectToAction("Index");
         }
+        public JsonResult Getbatch()
+        {
+
+            dc.Configuration.ProxyCreationEnabled = false;
+            List<tblbatch> List = new List<tblbatch>();
+            var List1 = dc.tblbatches.Include("tblfaculty").Include("tbltechnology").Select(x => new {
+                B_CR_DATE = x.B_CR_DATE,
+                B_ID = x.B_ID,
+                B_Name = x.B_Name,
+                B_ST_DATE = x.B_ST_DATE,
+                F_ID = x.F_ID,
+                Status = x.Status,
+                F_Name = x.tblfaculty != null ? x.tblfaculty.F_Name : "",
+                T_Name = x.tbltechnology != null ? x.tbltechnology.T_Name : ""
+            }).ToList();
+
+            //var query =
+            //from tblbatches in dc.tblbatches
+            //join tblfaculties in dc.tblfaculties on tblbatches.F_ID equals tblfaculties.F_ID
+            //select new { tblbatches = tblbatches, tblfaculties = tblfaculties };
+
+            //var Data = query.ToList();
+            return Json(List1, JsonRequestBehavior.AllowGet);
+        }
+        //public ActionResult Mybatches()
+        //{
+           
+
+        //    return View();
+
+        //}
+        //public JsonResult Mybatches()
+        //{
+        //    dc.Configuration.ProxyCreationEnabled = false;
+        //    List<tblbatch> List = new List<tblbatch>();
+        //    var mybatch = dc.tblbatches.GroupBy(x=>x.F_ID).Select(x => new
+        //    (
+        //        F_ID = x.F_ID,
+        //        B_ID = x.B_ID,
+        //        B_Name = x.B_Name,
+        //        facname = x.tblfaculty != null ? x.tblfaculty.F_Name : "",
+
+        //    )).ToList();
+        //    //return View();
+        //    return Json(mybatch, JsonRequestBehavior.AllowGet);
+
+        //}
 
     }
 }

@@ -39,7 +39,7 @@ namespace project.Areas.Student.Controllers
                 Session["profimg"] = userobj.S_img;
                 Session["userroll"] = userobj.Roll;
                 Session["batch"] = userobj.B_ID;
-                return RedirectToAction("Home");
+                return RedirectToAction("StudentDetails/" + userobj.S_ID);
             }
             else
             {
@@ -123,6 +123,74 @@ namespace project.Areas.Student.Controllers
             //    return RedirectToAction("Home");
             //}
             return RedirectToAction("Index");
+
+        }
+
+        public ActionResult StudentProfileEdit(int id)
+        {
+            var data = (from n in dc.tblstudents
+                        where n.S_ID == id
+                        select n).FirstOrDefault();
+            ViewBag.studentobj = data;
+            ViewBag.states = FillStates();
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult StudentProfileEdit(FormCollection fc, HttpPostedFileBase file)
+        {
+            tblstudent obj = new tblstudent();
+            //obj.S_ID = Convert.ToInt32(fc["F_ID"]);
+            var S_ID = Convert.ToInt32(fc["S_ID"]);
+            obj = dc.tblstudents.Find(S_ID);
+            if (obj == null)
+            {
+                obj = new tblstudent();
+            }
+            obj.F_Name = fc["fname"];
+            obj.L_Name = fc["L_Name"];
+            obj.E_mail = fc["E_mail"];
+            obj.Password = fc["Password"];
+            //obj.S_img = fc["F_Image"];
+            obj.Mobile = Convert.ToInt32(fc["Mobile"]);
+            obj.Address = fc["Address"];
+            //obj.ST_ID = Convert.ToInt32(fc["ST_ID"]);
+            string st = fc["state_id"];
+            if (!string.IsNullOrEmpty(st))
+            {
+                obj.ST_ID = Convert.ToInt32(st);
+            }
+            //obj.CT_ID = Convert.ToInt32(fc["CT_ID"]);
+            string ct = fc["city_id"];
+            if (!string.IsNullOrEmpty(ct))
+            {
+                obj.CT_ID = Convert.ToInt32(ct);
+            }
+
+            obj.Status = fc["stdstatus"];
+
+            if (file != null && file.ContentLength > 0)
+            {
+
+                string filename = Path.GetFileName(file.FileName);
+                string fullpath = Path.Combine(Server.MapPath("~/Images"), filename);
+                file.SaveAs(fullpath);
+                obj.S_img = filename;
+
+            }
+
+
+            dc.Entry(obj).State = System.Data.Entity.EntityState.Modified;
+            dc.SaveChanges();
+            //if(uRoll == "Admin")
+            //{
+            //    return RedirectToAction("Index");
+            //}
+            //else
+            //{
+            //    return RedirectToAction("Home");
+            //}
+            return RedirectToAction("StudentDetails/"+ S_ID);
 
         }
         public ActionResult StudentDelete(int id)

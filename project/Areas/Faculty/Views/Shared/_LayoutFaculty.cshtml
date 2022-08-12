@@ -1,6 +1,7 @@
 ﻿@{
     string username = Session["UserName"] != null ? Session["UserName"].ToString() : "";
     string upic = Session["profimg"] != null ? Session["profimg"].ToString() : "";
+    string uid = Session["UserId"] != null ? Session["UserId"].ToString() : "";
 }
 <!DOCTYPE html>
 
@@ -33,6 +34,7 @@
 
     <!-- Template Main CSS File -->
     <link href="~/Areas/Admin/web/assets/css/style.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 </head>
 <body>
     <header id="header" class="header fixed-top d-flex align-items-center">
@@ -40,7 +42,7 @@
         <div class="d-flex align-items-center justify-content-between">
             <a href="Facultyhome" class="logo d-flex align-items-center">
                 <img src="~/Areas/Admin/web/assets/img/logo.png" alt="">
-                <span class="d-none d-lg-block">NiceAdmin</span>
+                <span class="d-none d-lg-block">TechnoTask</span>
             </a>
             <i class="bi bi-list toggle-sidebar-btn"></i>
         </div><!-- End Logo -->
@@ -148,7 +150,7 @@
                                 </a>
                             </li>*@
                         <li>
-                            <a href="#">
+                            <a href="Mybatches/@uid">
                                 <i class="bi bi-circle"></i><span>View Batches</span>
                             </a>
                         </li>
@@ -174,7 +176,7 @@
     <!-- ======= Footer ======= -->
     <footer id="footer" class="footer">
         <div class="copyright">
-            &copy; Copyright <strong><span>NiceAdmin</span></strong>. All Rights Reserved
+            &copy; Copyright <strong><span>TechnoTask</span></strong>. All Rights Reserved
         </div>
         <div class="credits">
             <!-- All the links in the footer should remain intact. -->

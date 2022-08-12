@@ -1,0 +1,64 @@
+﻿@model IEnumerable<project.EDM.tblbatch>
+
+@{
+    ViewBag.Title = "Mybatches";
+    Layout = "~/Areas/Faculty/Views/Shared/_LayoutFaculty.cshtml";
+}
+
+<h2>Mybatches</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.B_Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.B_ST_DATE)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.B_CR_DATE)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tblfaculty.F_Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tbltechnology.T_Name)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.B_Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.B_ST_DATE)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.B_CR_DATE)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Status)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tblfaculty.F_Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tbltechnology.T_Name)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.B_ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.B_ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.B_ID })
+        </td>
+    </tr>
+}
+
+</table>
