@@ -1,0 +1,124 @@
+﻿@model project.EDM.tbltask
+
+@{
+    ViewBag.Title = "Tasklist";
+    Layout = "~/Areas/Faculty/Views/Shared/_LayoutFaculty.cshtml";
+}
+
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            url: "/Faculty/faculty/Gettasks",
+            type: "GET",
+            dataType: "json",
+            success: function (tasklist) {
+                console.log(tasklist);
+                $.each(tasklist, function (key, item) {
+
+                    var formattedCr_Date = null;
+                    var formattedAct_Date = null;
+                    if (item.Cr_Date != null) {
+                        var crdate = (new Date(parseInt(item.Cr_Date.substr(6))));
+
+                        const yyyy = crdate.getFullYear();
+                        let mm = crdate.getMonth() + 1; // Months start at 0!
+                        let dd = crdate.getDate();
+
+                        if (dd < 10) dd = '0' + dd;
+                        if (mm < 10) mm = '0' + mm;
+
+                        formattedCr_Date = dd + '/' + mm + '/' + yyyy;
+                    }
+                    if (item.Act_Date != null) {
+                        var actdate = (new Date(parseInt(item.Act_Date.substr(6))));
+
+                        const yyyy = actdate.getFullYear();
+                        let mm = actdate.getMonth() + 1; // Months start at 0!
+                        let dd = actdate.getDate();
+
+                        if (dd < 10) dd = '0' + dd;
+                        if (mm < 10) mm = '0' + mm;
+
+                        formattedAct_Date = dd + '/' + mm + '/' + yyyy;
+                    }
+                    
+                    //new Date(parseInt(item.B_ST_DATE(6)))
+                    if (item.Status == "Pending") {
+                        $("#tbltasks").append("<tr>"
+                            + "<td>" + item.Task_ID + "</td>"                            
+                            + "<td>" + item.Task_Desc + "</td>"
+                            + "<td>" + item.facultyname + "</td>"
+                            + "<td>" + item.adminname + "</td>"
+                            + "<td>" + formattedCr_Date + "</td>"
+                            + "<td>" + formattedAct_Date + "</td>"
+                            + "<td><span class='badge bg-danger'>" + item.Status + "</span></td>"
+                            //+ "<td><a href='/Default/Edit/" + item.F_ID + "'>Edit</a> | <a href='/Default/Delete/" + item.F_ID + "'>Delete</a></td>"
+                            + "</tr>");
+
+                    }
+                    else if (item.Status == "Complete") {
+                        $("#tbltasks").append("<tr>"
+                            + "<td>" + item.Task_ID + "</td>"
+                            + "<td>" + item.Task_Desc + "</td>"
+                            + "<td>" + item.facultyname + "</td>"
+                            + "<td>" + item.adminname + "</td>"
+                            + "<td>" + formattedCr_Date + "</td>"
+                            + "<td>" + formattedAct_Date + "</td>"
+                            + "<td><span class='badge bg-success'>" + item.Status + "</span></td>"
+                            //+ "<td><a href='/Default/Edit/" + item.F_ID + "'>Edit</a> | <a href='/Default/Delete/" + item.F_ID + "'>Delete</a></td>"
+                            + "</tr>");
+                    }
+                });
+            }
+        });
+    });
+</script>
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>Tasks</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/Faculty/faculty">Home</a></li>
+                <li class="breadcrumb-item active">Dashboard</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section dashboard">
+        <div class="row">
+
+            <!-- Left side columns -->
+            <div class="col-lg-12">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card recent-sales overflow-auto">
+                            <div class="card-body">
+                                <h5 class="card-title">Batch <span>| Details</span></h5>
+                                <table class="table table-borderless">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Description</th>
+                                            <th scope="col">Assign By</th>
+                                            <th scope="col">Assign To</th>
+                                            <th scope="col">Created Date</th>
+                                            <th scope="col">Action Date</th>
+                                            <th scope="col">Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tbltasks">
+                                    </tbody>
+                                </table>
+
+                            </div>
+
+                        </div>
+                    </div>
+                    <!--Batch Details End-->
+                </div>
+            </div><!-- End Left side columns -->
+        </div>
+    </section>
+
+</main><!-- End #main -->

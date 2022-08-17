@@ -340,5 +340,30 @@ namespace project.Areas.admin.Controllers
             
             return Json(List2, JsonRequestBehavior.AllowGet);
         }
+        public JsonResult Gettasks()
+        {
+
+            dc.Configuration.ProxyCreationEnabled = false;
+            List<tbltask> List = new List<tbltask>();
+            var List1 = dc.tbltasks.Include("tbladmin").Include("tblfaculty").Select(x => new {
+                Task_ID = x.Task_ID,
+                Task_Desc = x.Task_Desc,
+                AD_ID = x.AD_ID,
+                F_ID = x.F_ID,
+                Cr_Date = x.Cr_Date,
+                Act_Date = x.Act_Date,
+                Status = x.Status,
+                adminname = x.tbladmin != null ? x.tbladmin.F_Name : "",
+                facultyname = x.tblfaculty != null ? x.tblfaculty.F_Name : ""
+            }).ToList();
+
+            //var query =
+            //from tblbatches in dc.tblbatches
+            //join tblfaculties in dc.tblfaculties on tblbatches.F_ID equals tblfaculties.F_ID
+            //select new { tblbatches = tblbatches, tblfaculties = tblfaculties };
+
+            //var Data = query.ToList();
+            return Json(List1, JsonRequestBehavior.AllowGet);
+        }
     }
 }

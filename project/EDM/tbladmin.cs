@@ -14,6 +14,12 @@ namespace project.EDM
     
     public partial class tbladmin
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public tbladmin()
+        {
+            this.tbltasks = new HashSet<tbltask>();
+        }
+    
         public int AD_ID { get; set; }
         public string F_Name { get; set; }
         public string L_Name { get; set; }
@@ -21,5 +27,8 @@ namespace project.EDM
         public string Password { get; set; }
         public string A_Image { get; set; }
         public string Roll { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbltask> tbltasks { get; set; }
     }
 }

@@ -4,21 +4,23 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="f52b625071ed48c3be87ecc9f3e5348d" Name="Diagram1">
-        <EntityTypeShape EntityType="technotaskModel.tbladmin" Width="1.5" PointX="0.75" PointY="7.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="technotaskModel.tblbatch" Width="1.5" PointX="3" PointY="3.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="technotaskModel.tblbatchdetail" Width="1.5" PointX="5.25" PointY="3.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="technotaskModel.tblcity" Width="1.5" PointX="6" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="technotaskModel.tblfaculty" Width="1.5" PointX="0.75" PointY="3.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="technotaskModel.tblstate" Width="1.5" PointX="6" PointY="7.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="technotaskModel.tblstudent" Width="1.5" PointX="8.25" PointY="2.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="technotaskModel.tbltechnology" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
+      <Diagram DiagramId="f363d89164a146a3817ea3dee75b65b5" Name="Diagram1">
+        <EntityTypeShape EntityType="technotaskModel.tbladmin" Width="1.5" PointX="3.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="technotaskModel.tblbatch" Width="1.5" PointX="3" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="technotaskModel.tblbatchdetail" Width="1.5" PointX="5.25" PointY="9.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="technotaskModel.tblcity" Width="1.5" PointX="6" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="technotaskModel.tblfaculty" Width="1.5" PointX="0.75" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="technotaskModel.tblstate" Width="1.5" PointX="6" PointY="12.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="technotaskModel.tblstudent" Width="1.5" PointX="8.25" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="technotaskModel.tbltask" Width="1.5" PointX="6" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="technotaskModel.tbltechnology" Width="1.5" PointX="0.75" PointY="2.625" IsExpanded="true" />
+        <AssociationConnector Association="technotaskModel.FK_tbltask_tbladmin" ManuallyRouted="false" />
         <AssociationConnector Association="technotaskModel.FK_tblbatch_tblfaculty" ManuallyRouted="false" />
         <AssociationConnector Association="technotaskModel.FK_tblbatch_tbltechnology" ManuallyRouted="false" />
         <AssociationConnector Association="technotaskModel.FK_tblbatchdetail_tblbatch" ManuallyRouted="false" />
         <AssociationConnector Association="technotaskModel.FK_tblstudent_tblbatch" ManuallyRouted="false" />
-        <AssociationConnector Association="technotaskModel.FK_tblbatchdetail_tblstudent" ManuallyRouted="false" />
         <AssociationConnector Association="technotaskModel.FK_tblstudent_tblcity" ManuallyRouted="false" />
+        <AssociationConnector Association="technotaskModel.FK_tbltask_tblfaculty" ManuallyRouted="false" />
         <AssociationConnector Association="technotaskModel.FK_tblstudent_tblstate" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>

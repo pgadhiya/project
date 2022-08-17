@@ -82,6 +82,18 @@
           <Property Name="B_ID" Type="int" />
           <Property Name="Roll" Type="varchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="tbltask">
+          <Key>
+            <PropertyRef Name="Task_ID" />
+          </Key>
+          <Property Name="Task_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Task_Desc" Type="varchar" MaxLength="50" />
+          <Property Name="F_ID" Type="int" />
+          <Property Name="AD_ID" Type="int" />
+          <Property Name="Cr_Date" Type="datetime" />
+          <Property Name="Act_Date" Type="datetime" />
+          <Property Name="Status" Type="varchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="tbltechnology">
           <Key>
             <PropertyRef Name="T_ID" />
@@ -131,18 +143,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_tblbatchdetail_tblstudent">
-          <End Role="tblstudent" Type="Self.tblstudent" Multiplicity="0..1" />
-          <End Role="tblbatchdetail" Type="Self.tblbatchdetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblstudent">
-              <PropertyRef Name="S_ID" />
-            </Principal>
-            <Dependent Role="tblbatchdetail">
-              <PropertyRef Name="S_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_tblstudent_tblbatch">
           <End Role="tblbatch" Type="Self.tblbatch" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
@@ -185,6 +185,34 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_tbltask_tbladmin">
+          <End Role="tbladmin" Type="Self.tbladmin" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tbltask" Type="Self.tbltask" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbladmin">
+              <PropertyRef Name="AD_ID" />
+            </Principal>
+            <Dependent Role="tbltask">
+              <PropertyRef Name="AD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbltask_tblfaculty">
+          <End Role="tblfaculty" Type="Self.tblfaculty" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tbltask" Type="Self.tbltask" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblfaculty">
+              <PropertyRef Name="F_ID" />
+            </Principal>
+            <Dependent Role="tbltask">
+              <PropertyRef Name="F_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="technotaskModelStoreContainer">
           <EntitySet Name="tbladmin" EntityType="Self.tbladmin" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblbatch" EntityType="Self.tblbatch" Schema="dbo" store:Type="Tables" />
@@ -193,6 +221,7 @@
           <EntitySet Name="tblfaculty" EntityType="Self.tblfaculty" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblstate" EntityType="Self.tblstate" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblstudent" EntityType="Self.tblstudent" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbltask" EntityType="Self.tbltask" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbltechnology" EntityType="Self.tbltechnology" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_tblbatch_tblfaculty" Association="Self.FK_tblbatch_tblfaculty">
             <End Role="tblfaculty" EntitySet="tblfaculty" />
@@ -206,10 +235,6 @@
             <End Role="tblbatch" EntitySet="tblbatch" />
             <End Role="tblbatchdetail" EntitySet="tblbatchdetail" />
           </AssociationSet>
-          <AssociationSet Name="FK_tblbatchdetail_tblstudent" Association="Self.FK_tblbatchdetail_tblstudent">
-            <End Role="tblstudent" EntitySet="tblstudent" />
-            <End Role="tblbatchdetail" EntitySet="tblbatchdetail" />
-          </AssociationSet>
           <AssociationSet Name="FK_tblstudent_tblbatch" Association="Self.FK_tblstudent_tblbatch">
             <End Role="tblbatch" EntitySet="tblbatch" />
             <End Role="tblstudent" EntitySet="tblstudent" />
@@ -221,6 +246,14 @@
           <AssociationSet Name="FK_tblstudent_tblstate" Association="Self.FK_tblstudent_tblstate">
             <End Role="tblstate" EntitySet="tblstate" />
             <End Role="tblstudent" EntitySet="tblstudent" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbltask_tbladmin" Association="Self.FK_tbltask_tbladmin">
+            <End Role="tbladmin" EntitySet="tbladmin" />
+            <End Role="tbltask" EntitySet="tbltask" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbltask_tblfaculty" Association="Self.FK_tbltask_tblfaculty">
+            <End Role="tblfaculty" EntitySet="tblfaculty" />
+            <End Role="tbltask" EntitySet="tbltask" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -239,6 +272,7 @@
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="A_Image" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Roll" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tbltasks" Relationship="Self.FK_tbltask_tbladmin" FromRole="tbladmin" ToRole="tbltask" />
         </EntityType>
         <EntityType Name="tblbatch">
           <Key>
@@ -264,7 +298,6 @@
           <Property Name="B_ID" Type="Int32" />
           <Property Name="S_ID" Type="Int32" />
           <NavigationProperty Name="tblbatch" Relationship="Self.FK_tblbatchdetail_tblbatch" FromRole="tblbatchdetail" ToRole="tblbatch" />
-          <NavigationProperty Name="tblstudent" Relationship="Self.FK_tblbatchdetail_tblstudent" FromRole="tblbatchdetail" ToRole="tblstudent" />
         </EntityType>
         <EntityType Name="tblcity">
           <Key>
@@ -287,6 +320,7 @@
           <Property Name="F_Image" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Roll" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="tblbatches" Relationship="Self.FK_tblbatch_tblfaculty" FromRole="tblfaculty" ToRole="tblbatch" />
+          <NavigationProperty Name="tbltasks" Relationship="Self.FK_tbltask_tblfaculty" FromRole="tblfaculty" ToRole="tbltask" />
         </EntityType>
         <EntityType Name="tblstate">
           <Key>
@@ -314,9 +348,22 @@
           <Property Name="B_ID" Type="Int32" />
           <Property Name="Roll" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="tblbatch" Relationship="Self.FK_tblstudent_tblbatch" FromRole="tblstudent" ToRole="tblbatch" />
-          <NavigationProperty Name="tblbatchdetails" Relationship="Self.FK_tblbatchdetail_tblstudent" FromRole="tblstudent" ToRole="tblbatchdetail" />
           <NavigationProperty Name="tblcity" Relationship="Self.FK_tblstudent_tblcity" FromRole="tblstudent" ToRole="tblcity" />
           <NavigationProperty Name="tblstate" Relationship="Self.FK_tblstudent_tblstate" FromRole="tblstudent" ToRole="tblstate" />
+        </EntityType>
+        <EntityType Name="tbltask">
+          <Key>
+            <PropertyRef Name="Task_ID" />
+          </Key>
+          <Property Name="Task_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Task_Desc" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="F_ID" Type="Int32" />
+          <Property Name="AD_ID" Type="Int32" />
+          <Property Name="Cr_Date" Type="DateTime" Precision="3" />
+          <Property Name="Act_Date" Type="DateTime" Precision="3" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tbladmin" Relationship="Self.FK_tbltask_tbladmin" FromRole="tbltask" ToRole="tbladmin" />
+          <NavigationProperty Name="tblfaculty" Relationship="Self.FK_tbltask_tblfaculty" FromRole="tbltask" ToRole="tblfaculty" />
         </EntityType>
         <EntityType Name="tbltechnology">
           <Key>
@@ -326,6 +373,20 @@
           <Property Name="T_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="tblbatches" Relationship="Self.FK_tblbatch_tbltechnology" FromRole="tbltechnology" ToRole="tblbatch" />
         </EntityType>
+        <Association Name="FK_tbltask_tbladmin">
+          <End Role="tbladmin" Type="Self.tbladmin" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tbltask" Type="Self.tbltask" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbladmin">
+              <PropertyRef Name="AD_ID" />
+            </Principal>
+            <Dependent Role="tbltask">
+              <PropertyRef Name="AD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_tblbatch_tblfaculty">
           <End Role="tblfaculty" Type="Self.tblfaculty" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
@@ -382,18 +443,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_tblbatchdetail_tblstudent">
-          <End Role="tblstudent" Type="Self.tblstudent" Multiplicity="0..1" />
-          <End Role="tblbatchdetail" Type="Self.tblbatchdetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblstudent">
-              <PropertyRef Name="S_ID" />
-            </Principal>
-            <Dependent Role="tblbatchdetail">
-              <PropertyRef Name="S_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_tblstudent_tblcity">
           <End Role="tblcity" Type="Self.tblcity" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
@@ -405,6 +454,20 @@
             </Principal>
             <Dependent Role="tblstudent">
               <PropertyRef Name="CT_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbltask_tblfaculty">
+          <End Role="tblfaculty" Type="Self.tblfaculty" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tbltask" Type="Self.tbltask" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblfaculty">
+              <PropertyRef Name="F_ID" />
+            </Principal>
+            <Dependent Role="tbltask">
+              <PropertyRef Name="F_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -430,7 +493,12 @@
           <EntitySet Name="tblfaculties" EntityType="Self.tblfaculty" />
           <EntitySet Name="tblstates" EntityType="Self.tblstate" />
           <EntitySet Name="tblstudents" EntityType="Self.tblstudent" />
+          <EntitySet Name="tbltasks" EntityType="Self.tbltask" />
           <EntitySet Name="tbltechnologies" EntityType="Self.tbltechnology" />
+          <AssociationSet Name="FK_tbltask_tbladmin" Association="Self.FK_tbltask_tbladmin">
+            <End Role="tbladmin" EntitySet="tbladmins" />
+            <End Role="tbltask" EntitySet="tbltasks" />
+          </AssociationSet>
           <AssociationSet Name="FK_tblbatch_tblfaculty" Association="Self.FK_tblbatch_tblfaculty">
             <End Role="tblfaculty" EntitySet="tblfaculties" />
             <End Role="tblbatch" EntitySet="tblbatches" />
@@ -447,13 +515,13 @@
             <End Role="tblbatch" EntitySet="tblbatches" />
             <End Role="tblstudent" EntitySet="tblstudents" />
           </AssociationSet>
-          <AssociationSet Name="FK_tblbatchdetail_tblstudent" Association="Self.FK_tblbatchdetail_tblstudent">
-            <End Role="tblstudent" EntitySet="tblstudents" />
-            <End Role="tblbatchdetail" EntitySet="tblbatchdetails" />
-          </AssociationSet>
           <AssociationSet Name="FK_tblstudent_tblcity" Association="Self.FK_tblstudent_tblcity">
             <End Role="tblcity" EntitySet="tblcities" />
             <End Role="tblstudent" EntitySet="tblstudents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbltask_tblfaculty" Association="Self.FK_tbltask_tblfaculty">
+            <End Role="tblfaculty" EntitySet="tblfaculties" />
+            <End Role="tbltask" EntitySet="tbltasks" />
           </AssociationSet>
           <AssociationSet Name="FK_tblstudent_tblstate" Association="Self.FK_tblstudent_tblstate">
             <End Role="tblstate" EntitySet="tblstates" />
@@ -547,6 +615,19 @@
                 <ScalarProperty Name="S_img" ColumnName="S_img" />
                 <ScalarProperty Name="B_ID" ColumnName="B_ID" />
                 <ScalarProperty Name="Roll" ColumnName="Roll" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbltasks">
+            <EntityTypeMapping TypeName="technotaskModel.tbltask">
+              <MappingFragment StoreEntitySet="tbltask">
+                <ScalarProperty Name="Task_ID" ColumnName="Task_ID" />
+                <ScalarProperty Name="Task_Desc" ColumnName="Task_Desc" />
+                <ScalarProperty Name="F_ID" ColumnName="F_ID" />
+                <ScalarProperty Name="AD_ID" ColumnName="AD_ID" />
+                <ScalarProperty Name="Cr_Date" ColumnName="Cr_Date" />
+                <ScalarProperty Name="Act_Date" ColumnName="Act_Date" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

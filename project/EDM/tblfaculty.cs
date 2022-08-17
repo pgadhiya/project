@@ -18,6 +18,7 @@ namespace project.EDM
         public tblfaculty()
         {
             this.tblbatches = new HashSet<tblbatch>();
+            this.tbltasks = new HashSet<tbltask>();
         }
     
         public int F_ID { get; set; }
@@ -30,5 +31,7 @@ namespace project.EDM
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblbatch> tblbatches { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbltask> tbltasks { get; set; }
     }
 }

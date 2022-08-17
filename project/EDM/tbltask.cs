@@ -12,12 +12,17 @@ namespace project.EDM
     using System;
     using System.Collections.Generic;
     
-    public partial class tblbatchdetail
+    public partial class tbltask
     {
-        public int BD_ID { get; set; }
-        public Nullable<int> B_ID { get; set; }
-        public Nullable<int> S_ID { get; set; }
+        public int Task_ID { get; set; }
+        public string Task_Desc { get; set; }
+        public Nullable<int> F_ID { get; set; }
+        public Nullable<int> AD_ID { get; set; }
+        public Nullable<System.DateTime> Cr_Date { get; set; }
+        public Nullable<System.DateTime> Act_Date { get; set; }
+        public string Status { get; set; }
     
-        public virtual tblbatch tblbatch { get; set; }
+        public virtual tbladmin tbladmin { get; set; }
+        public virtual tblfaculty tblfaculty { get; set; }
     }
 }

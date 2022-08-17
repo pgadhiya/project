@@ -182,6 +182,9 @@
     <Compile Include="EDM\tblstudent.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="EDM\tbltask.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="EDM\tbltechnology.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -248,6 +251,11 @@
     <Content Include="Areas\Batches\Views\batch\BatchEdit.cshtml" />
     <Content Include="Areas\Batches\Views\batch\BatchDelete.cshtml" />
     <Content Include="Areas\Batches\Views\batch\BatchDetails.cshtml" />
+    <Content Include="Areas\Batches\Views\batch\BatchDetails1.cshtml" />
+    <Content Include="Areas\Student\Views\student\StudentProfileEdit.cshtml" />
+    <Content Include="Areas\Student\Views\student\Home.cshtml" />
+    <Content Include="Areas\Faculty\Views\faculty\Mybatches.cshtml" />
+    <Content Include="Areas\Faculty\Views\faculty\Tasklist.cshtml" />
     <EntityDeploy Include="EDM\Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model1.Designer.cs</LastGenOutput>
@@ -255,10 +263,10 @@
     <Content Include="EDM\Model1.edmx.diagram">
       <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
-    <Content Include="Areas\Batches\Views\batch\BatchDetails1.cshtml" />
-    <Content Include="Areas\Student\Views\student\StudentProfileEdit.cshtml" />
-    <Content Include="Areas\Student\Views\student\Home.cshtml" />
-    <Content Include="Areas\Faculty\Views\faculty\Mybatches.cshtml" />
+    <Content Include="Areas\Faculty\Views\faculty\Createtask.cshtml" />
+    <Content Include="Areas\Faculty\Views\faculty\ManageTask.cshtml" />
+    <Content Include="Areas\Faculty\Views\faculty\TaskDelete.cshtml" />
+    <Content Include="Areas\Faculty\Views\faculty\TaskEdit.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
